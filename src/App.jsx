@@ -3,11 +3,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { useSelector } from 'react-redux'
+import Cart from './Components/cart'
+import CheckOut from './Components/CheckOut'
+
 
 function App() {
 
-  const cart = useSelector(state => state.cart)
-console.log(cart);
+
 
 const apiURL = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -17,7 +19,7 @@ const apiToken = import.meta.env.VITE_API_READTOKEN;
     <>
       <div>
       <h1>Filmrent</h1>
-      
+        <CheckOut />
       </div>
     </>
   )
