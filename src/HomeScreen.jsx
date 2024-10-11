@@ -1,8 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import '../styles/HomeScreen.css';
 
 const HomeScreen = () => {
+  const [trendingMedia, setTrendingMedia] = useState([]);
+  const [popularTVShows, setPopularTVShows] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoadingTrending, setIsLoadingTrending] = useState(true);
+  const [isLoadingPopular, setIsLoadingPopular] = useState(true);
+
+  const apiOptions = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5Njk3MTFlMmFmMGViMGFlOThlYjAxNWQ3ZjNhNzA2YyIsIm5iZiI6MTcyODMwMDI1My40MzgwNiwic3ViIjoiNjM4Mzk3NjkyZTA2OTcwMjkyZTNiZWY1Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.D1iD3apoueoF_O9ai0Nni_tBuv411q4sUCKTfqavYm4'
+    }
+  };
+
+  useEffect(() => {
+    const fetchTrendingMedia = async () => {
+      try {
+        const response = await fetch('https://api.themoviedb.org/3/trending/all/day?language=en-US', apiOptions);
+        const data = await response.json();
+        setTrendingMedia(data.results.slice(0, 9));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingTrending(false);
+      }
+    };
+
+    const fetchPopularTVShows = async () => {
+      try {
+        const response = await fetch('https://api.themoviedb.org/3/tv/popular?language=en-US&page=1', apiOptions);
+        const data = await response.json();
+        setPopularTVShows(data.results.slice(0, 10));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingPopular(false);
+      }
+    };
+
+    fetchTrendingMedia();
+    fetchPopularTVShows();
+  }, []);
+
+  useEffect(() => {
+    const searchMovies = async () => {
+      if (searchQuery.trim() === '') {
+        setSearchResults([]);
+        return;
+      }
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchQuery)}&page=1`, apiOptions);
+        const data = await response.json();
+        setSearchResults(data.results.slice(0, 5));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const debounce = setTimeout(() => {
+      searchMovies();
+    }, 300);
+
+    return () => clearTimeout(debounce);
+  }, [searchQuery]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className="home-screen">
       <div className="welcome-section">
@@ -12,42 +82,90 @@ const HomeScreen = () => {
         </p>
         <div className="search-bar">
           <Search className="search-icon" size={20} />
-          <input type="text" placeholder="Search for movies, series, and more..." />
+          <input 
+            type="text" 
+            placeholder="Search for movies, series, and more..." 
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
         </div>
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            {searchResults.map((movie) => (
+              <div key={movie.id} className="search-result-item">
+                <img 
+                  src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} 
+                  alt={movie.title}
+                  className="search-result-poster"
+                />
+                <span>{movie.title}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
+
       <section className="content-section">
         <div className="section-header">
           <h2 className="section-title">Trending Now</h2>
           <button className="see-all-btn">See All <ChevronRight size={20} /></button>
         </div>
         <div className="thumbnail-list">
-          {[...Array(9)].map((_, index) => (
-            <div key={index} className="thumbnail-item">
-              <div className="thumbnail-image">
-                <div className="thumbnail-content">
-                  <div className="shape triangle"></div>
-                  <div className="shape square"></div>
-                  <div className="shape circle"></div>
+          {isLoadingTrending ? (
+            <p>Loading trending media...</p>
+          ) : (
+            trendingMedia.map((item) => (
+              <div key={item.id} className="thumbnail-item">
+                <div className="thumbnail-image">
+                  <img 
+                    src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} 
+                    alt={item.title || item.name}
+                    className="media-poster"
+                  />
                 </div>
+                <span className="thumbnail-label">{item.title || item.name}</span>
               </div>
-              <span className="thumbnail-label">Movie Title</span>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </section>
+
       <section className="content-section">
         <div className="section-header">
-          <h2 className="section-title">New Releases</h2>
+          <h2 className="section-title">Latest</h2>
           <button className="see-all-btn">See All <ChevronRight size={20} /></button>
         </div>
-        <div className="grid">
-          <div className="grid-item large"><div className="triangle"></div></div>
-          <div className="grid-item large"><div className="triangle"></div></div>
-          <div className="grid-item"><div className="triangle"></div></div>   
-                 <div className="grid-item"><div className="triangle"></div></div>
-                 <div className="grid-item"><div className="triangle"></div></div>
-
-          <div className="grid-item"><div className="triangle"></div></div>
+        <div className="tv-shows-grid">
+          {isLoadingPopular ? (
+            <p>Loading popular TV shows...</p>
+          ) : (
+            <>
+              {popularTVShows.slice(0, 2).map((show) => (
+                <div key={show.id} className="grid-item large">
+                  <div className="image-container">
+                    <img 
+                      src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} 
+                      alt={show.name}
+                      className="tv-show-poster"
+                    />
+                  </div>
+                  <span className="grid-item-label">{show.name}</span>
+                </div>
+              ))}
+              {popularTVShows.slice(2, 10).map((show) => (
+                <div key={show.id} className="grid-item">
+                  <div className="image-container">
+                    <img 
+                      src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} 
+                      alt={show.name}
+                      className="tv-show-poster"
+                    />
+                  </div>
+                  <span className="grid-item-label">{show.name}</span>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </section>
     </div>
