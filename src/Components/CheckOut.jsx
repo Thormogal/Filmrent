@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import Cart from "./cart";
 import '../CSS/Cart.css';
@@ -8,6 +8,7 @@ import { IoMdArrowRoundForward } from "react-icons/io";
 import Payment from "./Payment";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { setDummyData } from "../features/cart";
 
 
 const ShoppingCart = () => {
@@ -16,6 +17,7 @@ const ShoppingCart = () => {
     const [showPart, setShowPart] = useState(1);
     
     const [screenSize, setScreenSize] = useState(getScreenSize());
+    const dispatch = useDispatch();
 
     function getScreenSize() {
         const width = window.innerWidth;
@@ -28,17 +30,18 @@ const ShoppingCart = () => {
             return 'desktop';
         }
     }
-console.log(screenSize);
+
     useEffect(() => {
         const handleResize = () => {
             setScreenSize(getScreenSize());
         };
 
         window.addEventListener('resize', handleResize);
-
+        
         return () => {
             window.removeEventListener('resize', handleResize);
         };
+        
     }, []);
 
     const handleBackClick = () => {
