@@ -1,5 +1,5 @@
 
-
+import MovieCollection from './Components/movieCollection'
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
@@ -18,6 +18,7 @@ const apiToken = import.meta.env.VITE_API_READTOKEN;
   
   return (
 
+
     <div className="app-container">
       <Header />
       <main className="main-content">
@@ -29,6 +30,7 @@ const apiToken = import.meta.env.VITE_API_READTOKEN;
       <Footer />
     </div>
   );
+
 
 
 }
