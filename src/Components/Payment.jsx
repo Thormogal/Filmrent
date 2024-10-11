@@ -5,14 +5,28 @@ import swish from '../assets/swish.png';
 import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { resetCart } from "../features/cart";
+import { addToBoughtList } from "../features/profile";
 
 
 const Payment = () => {
 
     const [paymentMethod, setPaymentMethod] = useState('card');
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.cart);
 
     const handleChangePaymentMethod = (e) => {
         setPaymentMethod(e);
+    }
+
+    const handlePay= () => {
+        cart.forEach(movie => {
+            dispatch(addToBoughtList({movieID: movie.movieID}));
+            
+        });
+        dispatch(resetCart());
+        
     }
 
     return (
@@ -87,7 +101,7 @@ const Payment = () => {
                     
                 </motion.section>
                 <div className="flex-right">
-                    <button className="order-button" >Confirm and pay</button>
+                    <button className="order-button" onClick={() => handlePay()}>Confirm and pay</button>
                 </div>
                 <div className="margin-bottom-20">
             

@@ -23,6 +23,7 @@ const apiToken = import.meta.env.VITE_API_READTOKEN;
       <main className="main-content">
         <Routes>
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/checkout" element={<CheckOut />} />
         </Routes>
       </main>
       <Footer />
