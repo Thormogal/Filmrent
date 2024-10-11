@@ -19,7 +19,7 @@ const apiToken = import.meta.env.VITE_API_READTOKEN;
     <>
       <div>
       <h1>Filmrent</h1>
-        <CheckOut />
+        
       </div>
     </>
   )

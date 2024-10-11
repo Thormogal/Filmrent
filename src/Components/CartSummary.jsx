@@ -2,12 +2,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../CSS/Cart.css';
 import { RiCoupon5Line } from "react-icons/ri";
 import { useState } from 'react';
+import { MdDelete } from "react-icons/md";
 
 
 
 const CartSummary = ({showCart, setShowCart}) => {
 
-    const [coupon, setCoupon] = useState(0.1);
+    const coupons = [
+        {code: "10%OFF", percentage: 0.1}, 
+        {code: "20%OFF", percentage: 0.2},
+        {code: "30%OFF", percentage: 0.3}]
+
+    const [couponDiscount, setCouponDiscount] = useState(0);
+    const [showAddCoupon, setShowAddCoupon] = useState(false);
+    const [code, setCode] = useState('');
+    const [coupon, setCoupon] = useState(null);
+
+    
+    
 
     const cart = useSelector(state => state.cart);
 
@@ -18,44 +30,74 @@ const CartSummary = ({showCart, setShowCart}) => {
         return cart.reduce((total, item) => total + item.discount, 0);
     }
     const calculateCouponDiscount = () => {
-         return Math.round(((calculateTotalFullPrice() - calculateDiscount())*coupon)*100)/100;
+         return Math.round(((calculateTotalFullPrice() - calculateDiscount())*couponDiscount)*100)/100;
     }
     const calculateTotal = () => {
         return calculateTotalFullPrice() - calculateDiscount() - calculateCouponDiscount();
     }
 
+    const handleAddCouponCode = (text) => {
+
+        const coupon = coupons.find(c => c.code === text);
+        console.log(coupon);
+        if(coupon) {
+            setCoupon(coupon);
+            setCouponDiscount(coupon.percentage);
+            
+        } 
+        setShowAddCoupon(!showAddCoupon);
+    }
+
+    const handleDeleteCode = () => {
+        setCoupon(null);
+        setCouponDiscount(0);
+    }
     
     return ( 
         <section className="cart-summary box-shadow">
             <div className='top-border'>
 
             </div>
-            <p className='cart-top bottom-border' id='title'>Order Summary</p>
-            {/* <p className='cart-top padding-bottom-20' id='items'>{`Price Details (${cart.length} items)`}</p> */}
-            
-            <div className="coupon flex bottom-border">
-                <RiCoupon5Line className='icon'/>
-                <p>Coupons</p>
-                <button>Add</button>
+            <div className='cart-top bottom-border padding-30'>
+                <p className='' id='title'>Order Summary</p>
             </div>
+            <div className="coupon flex">
+                <div className='flex-left-payment'>
+                    <RiCoupon5Line className='icon'/>
+                    <p>Coupons</p>
+                </div>
+                {!showAddCoupon && coupon === null && <button onClick={() => setShowAddCoupon(!showAddCoupon)}>Add</button>}
+            </div>
+            { showAddCoupon && 
+            <div className="flex coupon">
+                <input type="text" placeholder='Coupon code' value={code} onChange={(e) => setCode(e.target.value)}/>
+                <button onClick={(e) => handleAddCouponCode(code)}>+</button>
+                </div>
+            }
+            {coupon !== null && <div className="active-coupon flex">
+                <p>"{coupon.code}"</p>
+                <MdDelete className="icon-delete" onClick={() => handleDeleteCode()}/>
+                </div>
+            }
+            <div className="bottom-border"></div>
             <div className="bottom-border flex">
                 <p id='items'>{`Price details (${cart.length} items)`} </p>
                 
             </div>
             <div className="summary">
                 
-                    <p>Total: </p>
+                    <p className='gray'>Total: </p>
                     <p>${calculateTotalFullPrice()}</p>
                
-                    <p>Discount:</p>
+                    <p className='gray'>Discount:</p>
                     <p className='discounted-price'>${calculateDiscount()}</p>
                 
-                    <p>Coupon Discount:</p>
+                    <p className='gray'>Coupon Discount:</p>
                     <p>${calculateCouponDiscount()}</p>
                 
             </div>
             <div className="bottom-border"></div>
-            <div className="flex">
+            <div className="summary summary-total flex">
                 <p>Total Ammount: </p>
                 <p>${calculateTotal()}</p>
             </div>

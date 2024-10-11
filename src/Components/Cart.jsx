@@ -18,11 +18,11 @@ const Cart = () => {
                 </div>
                 <p id="items">{cart.length} Items</p>
             </div>
-            <div className="cart-item flex no-border">
-                <p></p>
+            <div className="cart-item flex-cart no-border">
+                
                 <p className="gray" id="product">Products</p>
                 <p className="gray" id="price">Price</p>
-                <p className="fill-right"></p>
+                
             </div>
             <div className="margin-bottom-20">
             {cart.map((item, index) => (

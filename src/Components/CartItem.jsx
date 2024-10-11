@@ -16,14 +16,23 @@ const imageURL = `https://image.tmdb.org/t/p/original${item.poster_path}`
         <div className="cart-item flex box-shadow">
             <div className='flex'>
                 <img src={imageURL} alt="" />
-                <p>{item.title}</p>
+                <p className='item-title'>{item.title}</p>
             </div>
-            <div >
-                <p className='discounted-price'>${item.fullPrice - item.discount}</p>
-                {item.discount > 0 ? <p className='fullprice-discount'>${item.fullPrice}</p> : <p></p>  }
+            <div className='' >
+            {item.discount > 0 ? 
+                <div className='price'> 
+                    <p className='discounted-price'>${item.fullPrice - item.discount}</p>
+                    <p className='fullprice-discount'>${item.fullPrice}</p> 
+                </div> : 
+                <div className='price'>
+                    <p>${item.fullPrice}</p>  
+                </div>
+                }
                 
             </div>
-            <MdDelete className='icon' onClick={() => dispatch(removeFromCart(item.id))}/>
+            <div className='right'>
+                <MdDelete className='icon-delete' onClick={() => dispatch(removeFromCart(item.id))}/>
+            </div>
         </div>
      );
 }

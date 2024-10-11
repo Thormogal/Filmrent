@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [{id: 1, title: "movie ", poster_path: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg", fullPrice: 32.00, discount: 10.00}, {id: 2, title: "movie 2", poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", fullPrice: 32.00, discount: 8.00}];
+const initialState = [{id: 1, title: "Deadpool & Wolverine", poster_path: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg", fullPrice: 32.00, discount: 0.00}, {id: 2, title: "Aurora", poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", fullPrice: 32.00, discount: 8.00}];
 
 const cartSlice = createSlice({
     name: "cart",
