@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding: 20px;
   color: #000000;
+  box-sizing: border-box;
 }
 
 .welcome-section {
@@ -135,6 +136,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .thumbnail-image {
@@ -151,7 +153,7 @@
   transform: scale(1.05);
 }
 
-.media-poster, .tv-show-poster {
+.media-poster, .latest-poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -167,7 +169,7 @@
   text-overflow: ellipsis;
 }
 
-.tv-shows-grid {
+.latest-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px;
@@ -197,12 +199,11 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
 }
 
 .image-container {
-  min-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -231,6 +232,10 @@
 }
 
 @media (max-width: 768px) {
+  .home-screen {
+    padding: 10px;
+  }
+
   .welcome-title {
     font-size: 28px;
   }
@@ -239,23 +244,88 @@
     font-size: 16px;
   }
 
-  .tv-shows-grid {
+  .search-bar {
+    padding: 10px 20px;
+    max-width: 100%;
+  }
+
+  .search-results {
+    max-width: 100%;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .latest-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .grid-item.large {
     grid-column: span 2;
-    grid-row: span 2;
+    grid-row: span 1;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .thumbnail-image {
+    width: 120px;
+    height: 180px;
   }
 }
 
 @media (max-width: 480px) {
-  .tv-shows-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .home-screen {
+    padding: 10px;
+  }
+
+  .welcome-title {
+    font-size: 24px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+  }
+
+  .search-bar {
+    padding: 8px 16px;
+  }
+
+  .search-icon {
+    margin-right: 10px;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .see-all-btn {
+    font-size: 14px;
+  }
+
+  .latest-grid {
+    gap: 10px;
   }
 
   .grid-item, .grid-item.large {
     grid-column: span 1;
-    grid-row: span 1;
+    aspect-ratio: 2 / 3;
+  }
+
+  .thumbnail-image {
+    width: 100px;
+    height: 150px;
+  }
+
+  .thumbnail-label {
+    font-size: 12px;
+  }
+
+  .thumbnail-list {
+    gap: 10px;
   }
 }

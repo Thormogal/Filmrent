@@ -4,11 +4,11 @@ import '../styles/HomeScreen.css';
 
 const HomeScreen = () => {
   const [trendingMedia, setTrendingMedia] = useState([]);
-  const [popularTVShows, setPopularTVShows] = useState([]);
+  const [latestShows, setLatestShows] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoadingTrending, setIsLoadingTrending] = useState(true);
-  const [isLoadingPopular, setIsLoadingPopular] = useState(true);
+  const [isLoadingLatest, setIsLoadingLatest] = useState(true);
 
   const apiOptions = {
     method: 'GET',
@@ -31,20 +31,20 @@ const HomeScreen = () => {
       }
     };
 
-    const fetchPopularTVShows = async () => {
+    const fetchLatestShows = async () => {
       try {
         const response = await fetch('https://api.themoviedb.org/3/tv/popular?language=en-US&page=1', apiOptions);
         const data = await response.json();
-        setPopularTVShows(data.results.slice(0, 10));
+        setLatestShows(data.results.slice(0, 10));
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoadingPopular(false);
+        setIsLoadingLatest(false);
       }
     };
 
     fetchTrendingMedia();
-    fetchPopularTVShows();
+    fetchLatestShows();
   }, []);
 
   useEffect(() => {
@@ -135,30 +135,30 @@ const HomeScreen = () => {
           <h2 className="section-title">Latest</h2>
           <button className="see-all-btn">See All <ChevronRight size={20} /></button>
         </div>
-        <div className="tv-shows-grid">
-          {isLoadingPopular ? (
-            <p>Loading popular TV shows...</p>
+        <div className="latest-grid">
+          {isLoadingLatest ? (
+            <p>Loading latest shows...</p>
           ) : (
             <>
-              {popularTVShows.slice(0, 2).map((show) => (
+              {latestShows.slice(0, 2).map((show) => (
                 <div key={show.id} className="grid-item large">
                   <div className="image-container">
                     <img 
                       src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} 
                       alt={show.name}
-                      className="tv-show-poster"
+                      className="latest-poster"
                     />
                   </div>
                   <span className="grid-item-label">{show.name}</span>
                 </div>
               ))}
-              {popularTVShows.slice(2, 10).map((show) => (
+              {latestShows.slice(2, 10).map((show) => (
                 <div key={show.id} className="grid-item">
                   <div className="image-container">
                     <img 
                       src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} 
                       alt={show.name}
-                      className="tv-show-poster"
+                      className="latest-poster"
                     />
                   </div>
                   <span className="grid-item-label">{show.name}</span>
