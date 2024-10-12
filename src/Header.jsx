@@ -14,12 +14,12 @@ const Header = () => {
   return (
     <header className="streaming-header">
       <div className="header-content">
-        <button className="menu-toggle" onClick={toggleMenu}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
         <div className="logo-container">
           <img src={logoImage} alt="FilmRent Logo" className="logo-image" />
         </div>
+        <button className="menu-toggle" onClick={toggleMenu}>
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
         <nav className={`navigation-links ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link>
           <Link to="/movies" className="nav-link" onClick={toggleMenu}>Movies</Link>
