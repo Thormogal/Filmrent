@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoImage from '../public/Filmrent.png'; 
+import logoImage from '../public/Filmrent 2.png'; 
 import '../styles/Header.css';
 
 const Header = () => {

@@ -8,6 +8,7 @@ import HomeScreen from './HomeScreen';
 import './App.css';
 import Cart from './Components/cart'
 import CheckOut from './Components/CheckOut'
+import IndividualMovieInfo from './Components/individualMovieInfo';
 
 
 function App() {
@@ -25,6 +26,7 @@ const apiToken = import.meta.env.VITE_API_READTOKEN;
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/movie-info" element={<IndividualMovieInfo />} />
         </Routes>
       </main>
       <Footer />
