@@ -71,4 +71,12 @@
     flex-basis: 100%;
     margin-bottom: 20px;
   }
+
+  .footer-section a {
+    font-size: 12px;
+  }
+
+  .footer-section h3 {
+    font-size: 14px;
+  }
 }
