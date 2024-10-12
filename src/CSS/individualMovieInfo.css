@@ -14,10 +14,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    color:#ffffff;
+    width: 100%;
+}
+
+.movie-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: #ffffff;
     width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 10%;
     padding-top: 100px;
     padding-bottom: 100px;
     min-height: calc(100vh - 200px);
@@ -45,7 +51,7 @@ body {
 
 .movie-release-year {
     font-size: 18px;
-    color: #bbbbbb; 
+    color: #bbbbbb;
     margin-left: 10px;
 }
 
@@ -166,6 +172,14 @@ body {
 
 /* --- Responsive design --- */
 @media (max-width: 768px) {
+
+    .movie-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+    }
+
     .movie-layout-wrapper {
         flex-direction: column;
         justify-content: center;
@@ -177,8 +191,14 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: auto; /* Ändra från 100% till auto */
         margin: 0 auto;
         margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    .movie-extra-info-container {
+        width: 100%;
         padding: 20px;
     }
 
