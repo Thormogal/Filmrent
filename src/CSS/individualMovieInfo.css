@@ -14,10 +14,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: stretch;
+    color:#ffffff;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
-    height: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    min-height: calc(100vh - 200px);
 }
 
 .movie-details-container {
@@ -42,7 +45,7 @@ body {
 
 .movie-release-year {
     font-size: 18px;
-    color: #bbbbbb;
+    color: #bbbbbb; 
     margin-left: 10px;
 }
 
@@ -98,7 +101,7 @@ body {
 
 .buy-button,
 .favourite-button {
-    background: linear-gradient(to bottom, #B30000, #4D0000);
+    background: linear-gradient(to bottom, #D6A432, #A3221C);
     border: none;
     color: #ffffff;
     padding: 10px 20px;
@@ -110,11 +113,11 @@ body {
 
 .buy-button:hover,
 .favourite-button:hover {
-    background: linear-gradient(to bottom, #E60000, #660000);
+    background: linear-gradient(to bottom, #B30000, #4D0000);
 }
 
 .trailer-button {
-    background: linear-gradient(to bottom, #B30000, #4D0000);
+    background: linear-gradient(to bottom, #D6A432, #A3221C);
     border: none;
     color: #ffffff;
     padding: 10px 20px;

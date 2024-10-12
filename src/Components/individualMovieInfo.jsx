@@ -1,7 +1,7 @@
 import React from 'react';
 import '/src/CSS/individualMovieInfo.css';
-import reviewIcon from '/public/reviewIcon.png';
-import placeholderPoster from '/public/Filmrent.png';
+import reviewIcon from '/reviewIcon.png';
+import placeholderPoster from '/Filmrent.png';
 
 function IndividualMovieInfo() {
   return (
@@ -9,13 +9,13 @@ function IndividualMovieInfo() {
       {/* Container for title, poster, price, buy button */}
       <div className="movie-details-container">
         <div className="movie-title-container">
-          <h1>Filmens Titel <span className="movie-release-year">(2024)</span></h1>
+          <h1>Movie Title <span className="movie-release-year">(2024)</span></h1>
         </div>
         <img
           src={placeholderPoster} alt="Film Poster" className="movie-poster"
         />
         <div className="movie-price-container">
-          <p>Pris: 49 SEK</p>
+          <p>Price: 49 SEK</p>
         </div>
         <div className="movie-button-container">
           <button className="buy-button">Buy</button>
@@ -43,15 +43,14 @@ function IndividualMovieInfo() {
         <div className="movie-description">
           <h2>Movie Description</h2>
           <p>
-            Detta är en kort beskrivning av filmen.
-            Här kan du skriva om handlingen, huvudpersonerna och andra detaljer som gör filmen intressant.
-            Exempelvis vad som än kan tänkas skrivas in
+            This is a short description of the movie.
+            Here you can write about the plot, main characters, and other details that make the movie interesting.
           </p>
         </div>
         <div className="movie-cast">
           <h3>Cast & Contribution</h3>
-          <p>Regissör: John Doe</p>
-          <p>Skådespelare: Jane Doe, Jack Smith, Emily Brown</p>
+          <p>Director: John Doe</p>
+          <p>Actors: Jane Doe, Jack Smith, Emily Brown</p>
         </div>
       </div>
     </div>
