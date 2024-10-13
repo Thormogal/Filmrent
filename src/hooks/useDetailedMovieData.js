@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovieById, selectMovie, selectMovieLoading, selectMovieError } from '../features/detailedMovieSlice';
+import { fetchMovieById, selectMovie, selectMovieCredits, selectMovieLoading, selectMovieError, selectMovieTrailer } from '../features/detailedMovieSlice';
 
 export const useDetailedMovieData = (movieId) => {
   const dispatch = useDispatch();
   const movie = useSelector(selectMovie);
+  const credits = useSelector(selectMovieCredits);
+  const trailer = useSelector(selectMovieTrailer);
   const loading = useSelector(selectMovieLoading);
   const error = useSelector(selectMovieError);
 
@@ -14,7 +16,7 @@ export const useDetailedMovieData = (movieId) => {
     }
   }, [dispatch, movieId]);
 
-  return { movie, loading, error };
+  return { movie, credits, trailer, loading, error };
 };
 
 export default useDetailedMovieData;
