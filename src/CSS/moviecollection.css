@@ -4,45 +4,38 @@ body {
     
 }
 
-
-.header {
-    background-color: #770000;
-    /* border: 4px solid gray; */
-    height: 15vh;
-} 
-
-.search-bar {
+.search-barMovie {
     display: flex;
     align-items: center;
     background-color: rgba(161, 22, 22, 0.1);
     border-radius: 30px;
-    padding: 12px 24px;
+    padding: 0px 16px;
     max-width: 740px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 30px;
     
   }
   
-  .search-icon {
+  .search-iconMovie {
     color: #000000;
     margin-right: 15px;
   }
   
-  .search-bar input {
+  .search-barMovie input {
     border: none;
     background: transparent;
     width: 100%;
-    font-size: 14px;
+    font-size: 12px;
     outline: none;
     color: #000000;
   }
   
-  .search-bar input::placeholder {
+  .search-barMovie input::placeholder {
     color: rgba(0, 0, 0, 0.6);
   }
 
 .filterList > * {
-    width: 16rem;
+    width: 14rem;
     height: 2rem;
     border-radius: 20px;
     padding-left: 10px;
@@ -51,28 +44,31 @@ body {
 }
 .filterMovieContainer {
     width: 90%;
-    /* border: 2px solid gray; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .movielist-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    /* padding: 30px; */
-    margin-top: 20px;
+    column-gap: 0px;
+    margin-top: 10px;
     flex-wrap: wrap;
 }
 .movieImage{
-    width: 100%;
+    width: 80%;
     border-radius: 20px;
     box-shadow: 6px 8px 8px gray;
+    border: 1px solid rgb(102, 102, 102);
 }
 
+.movieListItem {
+    height: 90%;
+    margin-bottom: 20px;
+}
 .movieListItem > * {
     margin: 4px;
 }
@@ -84,15 +80,18 @@ body {
 
 .flexRatingYear {
     display: flex;
+    margin-bottom: 0px ;
+    font-size: 14px;
     /* border: 2px solid gray; */
     align-items: center;
     
 }
 .popcornIcon {
     width: 2.5rem;
+    padding-right: 0px;
 }
 .ratingYearTxt {
-    margin-left: 6px;
+    margin-left: 0px;
 }
 /* 
 @media (max-width: 768px) {
