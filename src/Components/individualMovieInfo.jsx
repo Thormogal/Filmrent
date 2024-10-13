@@ -14,8 +14,8 @@ function IndividualMovieInfo() {
 
   const getFullLanguageName = (langCode) => {
     if (!langCode) return '';
-    
-    const fullLanguage = isoLanguages.getName(langCode);  // Använder ett paket för att få språknamnet
+
+    const fullLanguage = isoLanguages.getName(langCode);
     return fullLanguage ? fullLanguage.charAt(0).toUpperCase() + fullLanguage.slice(1) : langCode;
   };
 
@@ -41,7 +41,7 @@ function IndividualMovieInfo() {
           </div>
           <img
             src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderPoster}
-            alt={movie.title} 
+            alt={movie.title}
             className="movie-poster"
           />
           <div className="movie-price-container">
@@ -56,7 +56,7 @@ function IndividualMovieInfo() {
           <div className="movie-meta-info">
             <div className="movie-meta-left">
               <p>Genre: {movie.genres && movie.genres.map(genre => genre.name).join(', ')}</p>
-              <p>Original Language: {movie.original_language}</p>
+              <p>Original Language: {getFullLanguageName(movie.original_language)}</p>
               <p>Playtime: {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min</p>
             </div>
             <div className="movie-button-wrapper">
