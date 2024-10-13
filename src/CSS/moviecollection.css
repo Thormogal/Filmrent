@@ -4,10 +4,6 @@ body {
     
 }
 
-.moviesPage-container {
-    /* padding-top: 40px; */
-}
-
 
 .header {
     background-color: #770000;
@@ -45,10 +41,6 @@ body {
     color: rgba(0, 0, 0, 0.6);
   }
 
-  .filterList {
-    
-    
-}
 .filterList > * {
     width: 16rem;
     height: 2rem;
@@ -84,9 +76,9 @@ body {
 .movieListItem > * {
     margin: 4px;
 }
-.filterSelect {
+/* .filterSelect {
     
-}
+} */
 
 
 
@@ -102,10 +94,8 @@ body {
 .ratingYearTxt {
     margin-left: 6px;
 }
-
+/* 
 @media (max-width: 768px) {
-    .movielist-container {
-        /* grid-template-columns: repeat(3, 1fr); */
-    }
 
-}
+
+}  */
