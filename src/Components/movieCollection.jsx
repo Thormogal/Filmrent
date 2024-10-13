@@ -1,6 +1,4 @@
 import '../CSS/moviecollection.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Search, } from 'lucide-react';
 import popcornIcon from '../assets/popcorn.ico'
 import movieImage from '../assets/Filmrent.png'
@@ -8,20 +6,33 @@ import { useEffect, useState } from 'react';
 
 
 export const fetchGenres = async () => {
-    const API_KEY = import.meta.env.VITE_API_KEY;
-    const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`);
+
     if (!response.ok) {
-        const error = await response.text();
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.json();
-    console.log('data',data)
-    return data.genres;
+
+    const data = await response.json(); 
+    return data.genres; 
 };
+
+const fetchMovies = async () => {
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`);
+
+    if(!response.ok) {
+        throw new Error(`Http Error! STatus: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.results;
+}
 
 const MovieCollection = () => {
 
     const [genres, setGenres] = useState([]);
+    const [movies, setMovies] = useState([]);
 
     useEffect(() => {
         const getGenres = async () => {
@@ -46,8 +57,9 @@ const MovieCollection = () => {
                 <div className='filterList'>
                     <br></br>
                     <select className='filterSelect'>
+                    <option value="">All movies</option>
                         {genres.map((genre) => (
-                            <option key={genre.id} value={genre.name} />
+                            <option key={genre.id} value={genre.name}>{genre.name}</option>
                         ))}
                     </select>
                     <select>
