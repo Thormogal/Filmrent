@@ -13,14 +13,14 @@ const CartSmall = ({showSmallCart, setShowSmallCart}) => {
     }
 
     return ( 
-        <div className="cart-small small-cart-space-between">
-            <div className="cart-title bottom-border ">
+        <div className="cart-small small-cart-space-between no-padding">
+            <div className="cart-title bottom-border no-padding">
                 <p id="title">Shopping Cart</p>
                 <MdOutlineCancel className="icon " onClick={() => setShowSmallCart(!showSmallCart)}/>
             </div>
             <div className="cart-all">
             
-            <div>
+            {/* <div> */}
             {cart.length === 0 && <p>Shopping cart is empty</p>}
             {cart.map((item, index) => {
                 const imageURL = `https://image.tmdb.org/t/p/original${item.poster_path}`
@@ -48,7 +48,7 @@ const CartSmall = ({showSmallCart, setShowSmallCart}) => {
                     </div>
                 </div>
             )})}
-            </div>
+            {/* </div> */}
             </div>
             <div className="">
                 
