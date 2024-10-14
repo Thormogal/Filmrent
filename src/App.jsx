@@ -7,6 +7,8 @@ import Footer from './Footer';
 import HomeScreen from './HomeScreen';
 import './App.css';
 import Cart from './Components/cart';
+import Profile from './Components/Profile';
+import Contact from './Contact'; 
 import CheckOut from './Components/CheckOut';
 import IndividualMovieInfo from './Components/individualMovieInfo';
 import CartSmall from './Components/CartSmall';
@@ -26,7 +28,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path='/movies' element={<MovieCollection />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/movie-info" element={<IndividualMovieInfo />} />
           <Route path="/movie-info/:movieId" element={<IndividualMovieInfo />} />
         </Routes>

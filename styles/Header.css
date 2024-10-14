@@ -22,11 +22,20 @@
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .logo-image {
-  height: 45px;
+  height: 40px;
   width: auto;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
 .navigation-links {
@@ -46,66 +55,48 @@
   gap: 10px;
 }
 
-.auth-button {
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-}
 
-.auth-button.login {
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-}
-
-.auth-button.signup {
+.profile-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(to bottom, #d6a432, #a3221c);
-  color: white;
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
   border: none;
+  border-radius: 50%;
   color: white;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
-  .header-content {
-    flex-wrap: wrap;
-  }
-
   .menu-toggle {
     display: block;
-    order: 0;
-  }
-
-  .logo-container {
-    order: 1;
-    flex: 1;
-    justify-content: center;
   }
 
   .navigation-links {
-    flex-basis: 100%;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #530000;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    order: 3;
+    padding: 20px;
   }
 
   .navigation-links.open {
-    max-height: 300px;
+    display: flex;
   }
 
-  .auth-buttons {
-    order: 2;
+  .nav-link {
+    padding: 10px 0;
   }
 }
 
@@ -116,15 +107,5 @@
 
   .logo-image {
     height: 30px;
-  }
-
-  .auth-buttons {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .auth-button {
-    padding: 6px 12px;
-    font-size: 12px;
   }
 }

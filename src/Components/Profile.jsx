@@ -1,12 +1,13 @@
+
+import React from 'react';
+
 const Profile = () => {
+  return (
+    <div className="profile">
+      <h1>User Profile</h1>
+     
+    </div>
+  );
+};
 
-    
-
-    return ( 
-        <section className="profile">
-
-        </section>
-     );
-}
- 
 export default Profile;

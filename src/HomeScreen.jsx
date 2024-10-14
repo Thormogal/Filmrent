@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/HomeScreen.css';
 
 const HomeScreen = () => {
@@ -9,6 +10,8 @@ const HomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoadingTrending, setIsLoadingTrending] = useState(true);
   const [isLoadingLatest, setIsLoadingLatest] = useState(true);
+  
+  const navigate = useNavigate();
 
   const apiOptions = {
     method: 'GET',
@@ -73,6 +76,14 @@ const HomeScreen = () => {
     setSearchQuery(e.target.value);
   };
 
+  const handleSeeAllTrending = () => {
+    navigate('/movies');
+  };
+
+  const handleSeeAllLatest = () => {
+    navigate('/movies');
+  };
+
   return (
     <div className="home-screen">
       <div className="welcome-section">
@@ -108,7 +119,9 @@ const HomeScreen = () => {
       <section className="content-section">
         <div className="section-header">
           <h2 className="section-title">Trending Now</h2>
-          <button className="see-all-btn">See All <ChevronRight size={20} /></button>
+          <button className="see-all-btn" onClick={handleSeeAllTrending}>
+            See All <ChevronRight size={20} />
+          </button>
         </div>
         <div className="thumbnail-list">
           {isLoadingTrending ? (
@@ -133,7 +146,9 @@ const HomeScreen = () => {
       <section className="content-section">
         <div className="section-header">
           <h2 className="section-title">Latest</h2>
-          <button className="see-all-btn">See All <ChevronRight size={20} /></button>
+          <button className="see-all-btn" onClick={handleSeeAllLatest}>
+            See All <ChevronRight size={20} />
+          </button>
         </div>
         <div className="latest-grid">
           {isLoadingLatest ? (
