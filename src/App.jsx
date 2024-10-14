@@ -9,6 +9,7 @@ import './App.css';
 import Cart from './Components/cart';
 import CheckOut from './Components/CheckOut';
 import IndividualMovieInfo from './Components/individualMovieInfo';
+import Profile from './Components/Profile'; 
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/movie-info" element={<IndividualMovieInfo />} />
           <Route path="/movie-info/:movieId" element={<IndividualMovieInfo />} />
+          <Route path='/profile' element={<Profile/>} />
         </Routes>
       </main>
       <Footer />

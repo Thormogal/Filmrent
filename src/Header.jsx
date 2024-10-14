@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logoImage from '/Filmrent 2.png'; 
 import '../styles/Header.css';
 
 const Header = () => {
+const navigate = useNavigate();
+const handleLoginClick = () => {
+  navigate('/profile');
+};
   return (
     <header className="streaming-header">
       <div className="header-content">
@@ -18,7 +22,7 @@ const Header = () => {
           <Link to="/checkout" className='nav-link'>Checkout</Link>
         </nav>
         <div className="auth-buttons">
-          <button className="auth-button login">Log in</button>
+          <button className="auth-button login" onClick={handleLoginClick}>Log in</button>
           <button className="auth-button signup">Sign up</button>
         </div>
       </div>
