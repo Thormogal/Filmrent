@@ -17,6 +17,7 @@ const Header = () => {
         <div className="logo-container">
           <img src={logoImage} alt="FilmRent Logo" className="logo-image" />
         </div>
+
         <button className="menu-toggle" onClick={toggleMenu}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
