@@ -10,8 +10,7 @@ import useMoviesData from '../hooks/useMoviesData';
 const MovieCollection = () => {
 
     const { genres, movies, loading, error } = useMoviesData();
-    const imageURL = `https://image.tmdb.org/t/p/original`
-
+    
     if (loading) {
         return <div>Loading...</div>
     }
@@ -52,7 +51,6 @@ const MovieCollection = () => {
 
                         <div key={movie.id} className='movieListItem'>
                             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className='movieImage' />
-                            <h4>{movie.original_title}</h4>
                             <div className='flexRatingYear'>
                                 <img src={popcornIcon} alt="Popcorn icon" className='popcornIcon' />
                                 <span className='ratingYearTxt'>{trimRatingNumber(movie.vote_average)} | {extractYear(movie.release_date)}</span>
