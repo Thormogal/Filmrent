@@ -7,11 +7,46 @@ const initialState = [{id: 1,
     fullPrice: 32.00, 
     discount: 0.00},
     {id: 2, 
-        movieID: 203144,
+        movieID: 974262,
         title: "Aurora", 
         poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", 
         fullPrice: 32.00, 
-        discount: 8.00}
+        discount: 8.00},
+        {id: 1, 
+            movieID: 533535,
+            title: "Deadpool & Wolverine", 
+            poster_path: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg", 
+            fullPrice: 32.00, 
+            discount: 0.00},
+            {id: 2, 
+                movieID: 974262,
+                title: "Aurora", 
+                poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", 
+                fullPrice: 32.00, 
+                discount: 8.00},
+                {id: 1, 
+                    movieID: 533535,
+                    title: "Deadpool & Wolverine", 
+                    poster_path: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg", 
+                    fullPrice: 32.00, 
+                    discount: 0.00},
+                    {id: 2, 
+                        movieID: 974262,
+                        title: "Aurora", 
+                        poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", 
+                        fullPrice: 32.00, 
+                        discount: 8.00},{id: 1, 
+                            movieID: 533535,
+                            title: "Deadpool & Wolverine", 
+                            poster_path: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg", 
+                            fullPrice: 32.00, 
+                            discount: 0.00},
+                            {id: 2, 
+                                movieID: 974262,
+                                title: "Aurora", 
+                                poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", 
+                                fullPrice: 32.00, 
+                                discount: 8.00}
 ];
 
 const reset = [];
@@ -45,7 +80,9 @@ const cartSlice = createSlice({
                 poster_path: "/kM7iMPQ3GaWruUkQWZrlckGvWGN.jpg", 
                 fullPrice: 32.00, 
                 discount: 8.00});
-        }
+        },
+      
+       
         
     }
 });

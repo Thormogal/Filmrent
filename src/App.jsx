@@ -1,6 +1,6 @@
 
 import MovieCollection from './Components/movieCollection';
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
@@ -11,17 +11,20 @@ import Profile from './Components/Profile';
 import Contact from './Contact'; 
 import CheckOut from './Components/CheckOut';
 import IndividualMovieInfo from './Components/individualMovieInfo';
+import CartSmall from './Components/CartSmall';
 
 function App() {
 
   const apiURL = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
   const apiToken = import.meta.env.VITE_API_READTOKEN;
+  const [showSmallCart, setShowSmallCart] = useState(false);
 
   return (
     <div className="app-container">
-      <Header />
+      <Header showSmallCart={showSmallCart} setShowSmallCart={setShowSmallCart}/>
       <main className="main-content">
+        {showSmallCart && <CartSmall showSmallCart={showSmallCart} setShowSmallCart={setShowSmallCart}/>}
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path='/movies' element={<MovieCollection />} />
