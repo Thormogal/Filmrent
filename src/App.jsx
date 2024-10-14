@@ -11,6 +11,7 @@ import Profile from './Components/Profile';
 import Contact from './Contact'; 
 import CheckOut from './Components/CheckOut';
 import IndividualMovieInfo from './Components/individualMovieInfo';
+import Profile from './Components/Profile'; 
 import CartSmall from './Components/CartSmall';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/movie-info" element={<IndividualMovieInfo />} />
           <Route path="/movie-info/:movieId" element={<IndividualMovieInfo />} />
+          <Route path='/profile' element={<Profile/>} />
         </Routes>
       </main>
       <Footer />
