@@ -1,0 +1,28 @@
+
+.movie-price-container {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #ff0000;
+    margin-right: 10px;
+}
+
+.discount-price {
+    font-style: italic;
+    color: #00cc00;
+    font-weight: bold;
+}
+
+.anniversary-discount {
+    display: block;
+    margin-top: 5px;
+    font-style: italic;
+    font-size: 18px;
+    color: #ffa500;
+}

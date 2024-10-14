@@ -15,8 +15,8 @@ const Cart = () => {
                 <div className="cart-title">
                     <FaShoppingCart className="icon"/>
                     <p id="title">Shopping Cart</p>
-                </div>
                 <p id="items">{cart.length} Items</p>
+                </div>
             </div>
             <div className="cart-item flex-cart no-border">
                 

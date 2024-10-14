@@ -31,7 +31,6 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/movie-info" element={<IndividualMovieInfo />} />
           <Route path="/movie-info/:movieId" element={<IndividualMovieInfo />} />
         </Routes>
       </main>

@@ -4,7 +4,6 @@ import axios from 'axios';
 const initialState = {
   movie: null,
   credits: null,
-  providers: null,
   trailer: null,
   loading: false,
   error: null,
@@ -22,7 +21,6 @@ const detailedMovieSlice = createSlice({
       state.loading = false;
       state.movie = action.payload.movie;
       state.credits = action.payload.credits;
-      state.providers = action.payload.providers;
       state.trailer = action.payload.trailer;
     },
     fetchMovieFailure: (state, action) => {
@@ -53,12 +51,6 @@ export const fetchMovieById = (movieId) => async (dispatch) => {
       },
     });
 
-    const providersResponse = await axios.get(`${apiURL}/movie/${movieId}/watch/providers`, {
-      headers: {
-        Authorization: `Bearer ${apiToken}`,
-      },
-    });
-
     const videosResponse = await axios.get(`${apiURL}/movie/${movieId}/videos`, {
       headers: {
         Authorization: `Bearer ${apiToken}`,
@@ -70,7 +62,6 @@ export const fetchMovieById = (movieId) => async (dispatch) => {
     dispatch(fetchMovieSuccess({ 
       movie: movieResponse.data, 
       credits: creditsResponse.data,
-      providers: providersResponse.data.results.SE || null,
       trailer: trailer ? trailer.key : null,
     }));
 
@@ -81,7 +72,6 @@ export const fetchMovieById = (movieId) => async (dispatch) => {
 
 export const selectMovie = (state) => state.movie.movie;
 export const selectMovieCredits = (state) => state.movie.credits;
-export const selectMovieProviders = (state) => state.movie.providers;
 export const selectMovieTrailer = (state) => state.movie.trailer;
 export const selectMovieLoading = (state) => state.movie.loading;
 export const selectMovieError = (state) => state.movie.error;

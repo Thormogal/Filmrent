@@ -27,8 +27,8 @@ body {
     color: #ffffff;
     width: 80%;
     margin: 0 10%;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     min-height: calc(100vh - 200px);
 }
 
