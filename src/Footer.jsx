@@ -19,12 +19,6 @@ const Footer = () => {
           <a href="#">Contact Us</a>
         </div>
         <div className="footer-section">
-          <h3>Legal</h3>
-          <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Cookie Preferences</a>
-        </div>
-        <div className="footer-section">
           <h3>Social</h3>
           <a href="#">Facebook</a>
           <a href="#">Twitter</a>

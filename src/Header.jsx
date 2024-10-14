@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logoImage from '/Filmrent 2.png'; 
+import logoImage from '../public/Filmrent 2.png';
+import { Menu, X } from 'lucide-react';
 import '../styles/Header.css';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header className="streaming-header">
       <div className="header-content">
         <div className="logo-container">
           <img src={logoImage} alt="FilmRent Logo" className="logo-image" />
         </div>
-        <nav className="navigation-links">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/movies" className="nav-link">Movies</Link>
-          <Link to="/series" className="nav-link">Series</Link>
-          <Link to="/contact" className="nav-link">Contact</Link>
-          <Link to="/checkout" className='nav-link'>Checkout</Link>
+
+        <button className="menu-toggle" onClick={toggleMenu}>
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+        <nav className={`navigation-links ${isMenuOpen ? 'open' : ''}`}>
+          <Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link>
+          <Link to="/movies" className="nav-link" onClick={toggleMenu}>Movies</Link>
+          <Link to="/series" className="nav-link" onClick={toggleMenu}>Series</Link>
+          <Link to="/contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
         </nav>
         <div className="auth-buttons">
           <button className="auth-button login">Log in</button>
