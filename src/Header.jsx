@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import logoImage from '../public/Filmrent 2.png';
 import { Menu, X } from 'lucide-react';
 import '../styles/Header.css';
+import { FaShoppingCart } from "react-icons/fa";
 
-const Header = () => {
+
+const Header = ({showSmallCart, setShowSmallCart}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -30,7 +33,9 @@ const Header = () => {
         <div className="auth-buttons">
           <button className="auth-button login">Log in</button>
           <button className="auth-button signup">Sign up</button>
+          <FaShoppingCart className='icon-header' onClick={() => setShowSmallCart(!showSmallCart)}/>
         </div>
+        
       </div>
     </header>
   );

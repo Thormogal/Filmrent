@@ -200,48 +200,12 @@ const ShoppingCart = () => {
 
     const cart = useSelector(state => state.cart)
     return ( 
-        <div>
+        <div className="shoppingcart">
             {screenSize === 'mobile' && <CheckoutMobileScreen />}
             {screenSize === 'tablet' && <CheckoutTabletScreen />}
             {screenSize === 'desktop' && <CheckoutDesktopScreen />}
         </div>
-        // <AnimatePresence mode="wait">
-        //     <div className="shoppingcart">
-        //         <div>
-        //             {showCart ? 
-        //             <motion.div
-        //                 key="cart"
-        //                 initial={{ opacity: 0 }}
-        //                 animate={{ opacity: 1 }}
-        //                 exit={{ opacity: 0 }}
-        //                 transition={{ duration: 0.5 }}
-        //             >
-        //                 <Cart /> 
-        //             </motion.div>: 
-        //             <motion.div
-        //                 key="payment"
-        //                 initial={{ opacity: 0 }}
-        //                 animate={{ opacity: 1 }}
-        //                 exit={{ opacity: 0 }}
-        //                 transition={{ duration: 0.5 }}
-        //             >
-        //                 <Payment />
-        //              </motion.div>}
-        //             <div className="flex space-between">
-        //                 <div className="flex-left pointer" onClick={() =>  handleBackClick()}>
-        //                     <IoMdArrowRoundBack className="icon" />
-        //                     <p>{showCart ? "Continue shopping" : "Back to Cart"}</p>
-                            
-        //                 </div>
-        //                 <div className="flex-left pointer" onClick={() => handleNext()}>
-        //                     <p>Next</p>
-        //                     <IoMdArrowRoundForward className="icon" />
-        //                 </div>
-        //             </div>
-        //         </div>
-        //         <CartSummary showCart={showCart} setShowCart={setShowCart}/>
-        //     </div>
-        // </AnimatePresence>
+        
      );
 }
  

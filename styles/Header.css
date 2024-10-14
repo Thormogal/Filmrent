@@ -15,7 +15,10 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.icon-header {
+  height: 24px;
+  width: 24px;
+}
 .logo-container {
   display: flex;
   align-items: center;
@@ -39,6 +42,7 @@
 
 .auth-buttons {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
