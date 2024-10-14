@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '/src/CSS/individualMovieInfo.css';
+import '/src/CSS/priceStyles.css';
 import reviewIcon from '/reviewIcon.png';
 import placeholderPoster from '/Filmrent.png';
 import { useParams } from 'react-router-dom';
@@ -8,6 +9,7 @@ import isoLanguages from 'iso-639-1';
 import TrailerModal from '/src/Components/trailerModal.jsx';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../features/cart';
+import { calculatePrice } from '../utils/priceCalculator.js';
 
 function IndividualMovieInfo() {
   const dispatch = useDispatch();
@@ -33,20 +35,18 @@ function IndividualMovieInfo() {
     return <p>No movie data found.</p>;
   }
 
-  const directors = credits ? credits.crew.filter((person) => person.job === 'Director').map((director) => director.name).join(', ') : 'Unknown Director';
-  const actors = credits ? credits.cast.slice(0, 5).map((actor) => actor.name).join(', ') : 'Unknown Actors';
-  const movieRating = movie.vote_average ? Math.round(movie.vote_average * 10) / 10 : 0;
+  const { fullPrice, discountPrice, isAnniversary } = calculatePrice(movie.release_date);  
 
   const handleBuy = () => {
-    let addedTempPriceMovie = {
+    let movieToBuy = {
       ...movie,
-      fullPrice: 24.00, 
-      discount: 10.00
-  };
-    
-    dispatch(addToCart(addedTempPriceMovie));
-    // dispatch(addToCart(movie));
-  }
+      fullPrice: fullPrice,
+      ...(isAnniversary && { discount: 10 }),
+      finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
+    };
+
+    dispatch(addToCart(movieToBuy));
+};
 
   return (
     <div className="movie-layout-wrapper">
@@ -60,13 +60,25 @@ function IndividualMovieInfo() {
             alt={movie.title}
             className="movie-poster"
           />
+          
+
           <div className="movie-price-container">
-            <p>Price: 49 SEK</p> {/* Temporärt pris */}
+            {isAnniversary ? (
+              <>
+                <span className="original-price"><s>${fullPrice.toFixed(2)}</s></span>
+                <span className="discount-price">${discountPrice.toFixed(2)}</span>
+                <span className="anniversary-discount">Anniversary Discount Applied!</span>
+              </>
+            ) : (
+              <span>${fullPrice.toFixed(2)}</span>
+            )}
           </div>
+
           <div className="movie-button-container">
-            <button className="buy-button" onClick={() => handleBuy()}>Buy</button>
+            <button className="buy-button" onClick={handleBuy}>Buy</button>
           </div>
         </div>
+
 
         <div className="movie-extra-info-container">
           <div className="movie-meta-info">
@@ -87,7 +99,7 @@ function IndividualMovieInfo() {
             <div className="movie-review-and-buttons">
               <div className="review-icon">
                 <img src={reviewIcon} alt="Review Icon" className="review-icon-img" />
-                <p className="movie-rating">{movieRating} / 10</p>
+                <p className="movie-rating">{movie.vote_average} / 10</p>
               </div>
               <div className="movie-button-wrapper">
                 <button className="trailer-button" onClick={() => setModalIsOpen(true)}>
@@ -109,10 +121,10 @@ function IndividualMovieInfo() {
             <h3>Cast & Contribution</h3>
             <div className="movie-characteristics">
               <div className="movie-director">
-                <strong>Director:</strong> <span>{directors}</span>
+                <strong>Director:</strong> <span>{credits ? credits.crew.filter(crew => crew.job === 'Director').map(d => d.name).join(', ') : 'N/A'}</span>
               </div>
               <div className="movie-actors">
-                <strong>Actors:</strong> <span>{actors}</span>
+                <strong>Actors:</strong> <span>{credits ? credits.cast.slice(0, 5).map(actor => actor.name).join(', ') : 'N/A'}</span>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <h3>Company</h3>
-          <Link to="/movie-info">Detailed Movie Info</Link> { /* About Us */ }
+          <a href="#">About Us</a>
           <a href="#">Careers</a>
           <a href="#">Press</a>
         </div>
