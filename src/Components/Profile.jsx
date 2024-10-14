@@ -1,4 +1,3 @@
-
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromBoughtList, removeFromSavedList } from '../features/profile';
 import React, { useState } from 'react';

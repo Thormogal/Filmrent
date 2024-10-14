@@ -15,7 +15,10 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.icon-header {
+  height: 24px;
+  width: 24px;
+}
 .logo-container {
   display: flex;
   align-items: center;
@@ -27,10 +30,12 @@
   width: auto;
 }
 
-.logo-text {
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
   color: white;
-  font-size: 20px;
-  font-weight: bold;
+  cursor: pointer;
 }
 
 .navigation-links {
@@ -46,66 +51,61 @@
 
 .auth-buttons {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.auth-button {
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-}
 
-.auth-button.login {
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-}
-
-.auth-button.signup {
+.profile-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   background: linear-gradient(to bottom, #d6a432, #a3221c);
+  border: none;
+  border-radius: 50%;
   color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
-  .header-content {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-  }
-
-  .logo-container {
-    flex-basis: 100%;
-    justify-content: center;
+  .menu-toggle {
+    display: block;
   }
 
   .navigation-links {
-    order: 3;
-    flex-basis: 100%;
-    justify-content: center;
-    margin-top: 10px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #530000;
+    flex-direction: column;
+    padding: 20px;
   }
 
-  .auth-buttons {
-    order: 2;
+  .navigation-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 10px 0;
   }
 }
 
 @media (max-width: 480px) {
-  .navigation-links {
-    flex-wrap: wrap;
-    justify-content: center;
+  .header-content {
+    padding: 10px 15px;
   }
 
-  .nav-link {
-    flex-basis: 40%;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .auth-buttons {
-    flex-basis: 100%;
-    justify-content: center;
+  .logo-image {
+    height: 30px;
   }
 }

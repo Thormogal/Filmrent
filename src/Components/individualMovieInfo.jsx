@@ -6,8 +6,11 @@ import { useParams } from 'react-router-dom';
 import useDetailedMovieData from '../hooks/useDetailedMovieData';
 import isoLanguages from 'iso-639-1';
 import TrailerModal from '/src/Components/trailerModal.jsx';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../features/cart';
 
 function IndividualMovieInfo() {
+  const dispatch = useDispatch();
   const { movieId } = useParams();
   const { movie, credits, trailer, loading, error } = useDetailedMovieData(movieId);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -34,6 +37,17 @@ function IndividualMovieInfo() {
   const actors = credits ? credits.cast.slice(0, 5).map((actor) => actor.name).join(', ') : 'Unknown Actors';
   const movieRating = movie.vote_average ? Math.round(movie.vote_average * 10) / 10 : 0;
 
+  const handleBuy = () => {
+    let addedTempPriceMovie = {
+      ...movie,
+      fullPrice: 24.00, 
+      discount: 10.00
+  };
+    
+    dispatch(addToCart(addedTempPriceMovie));
+    // dispatch(addToCart(movie));
+  }
+
   return (
     <div className="movie-layout-wrapper">
       <div className="movie-content-wrapper">
@@ -50,7 +64,7 @@ function IndividualMovieInfo() {
             <p>Price: 49 SEK</p> {/* Temporärt pris */}
           </div>
           <div className="movie-button-container">
-            <button className="buy-button">Buy</button>
+            <button className="buy-button" onClick={() => handleBuy()}>Buy</button>
           </div>
         </div>
 

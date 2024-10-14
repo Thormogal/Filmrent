@@ -39,7 +39,7 @@ const CartSummary = ({showCart, setShowCart}) => {
     const handleAddCouponCode = (text) => {
 
         const coupon = coupons.find(c => c.code === text);
-        console.log(coupon);
+        
         if(coupon) {
             setCoupon(coupon);
             setCouponDiscount(coupon.percentage);
