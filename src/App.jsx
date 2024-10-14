@@ -11,7 +11,6 @@ import Profile from './Components/Profile';
 import Contact from './Contact'; 
 import CheckOut from './Components/CheckOut';
 import IndividualMovieInfo from './Components/individualMovieInfo';
-import Profile from './Components/Profile'; 
 import CartSmall from './Components/CartSmall';
 
 function App() {
