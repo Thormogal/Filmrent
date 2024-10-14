@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import logoImage from '../public/Filmrent 2.png';
 import { Menu, X } from 'lucide-react';
 import '../styles/Header.css';
+import Contact from './Contact';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,7 @@ const Header = () => {
           <Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link>
           <Link to="/movies" className="nav-link" onClick={toggleMenu}>Movies</Link>
           <Link to="/series" className="nav-link" onClick={toggleMenu}>Series</Link>
-          <Link to="/contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
+          <Link to="/Contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
         </nav>
         <div className="auth-buttons">
           <button className="auth-button login">Log in</button>
