@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoImage from '../public/Filmrent 2.png';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import '../styles/Header.css';
-import Contact from './Contact';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,7 +17,6 @@ const Header = () => {
         <div className="logo-container">
           <img src={logoImage} alt="FilmRent Logo" className="logo-image" />
         </div>
-
         <button className="menu-toggle" onClick={toggleMenu}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -29,8 +27,9 @@ const Header = () => {
           <Link to="/Contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
         </nav>
         <div className="auth-buttons">
-          <button className="auth-button login">Log in</button>
-          <button className="auth-button signup">Sign up</button>
+          <Link to="/profile" className="profile-button">
+            <User size={24} />
+          </Link>
         </div>
       </div>
     </header>
