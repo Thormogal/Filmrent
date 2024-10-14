@@ -1,10 +1,10 @@
 import '../CSS/moviecollection.css';
-import { Search, } from 'lucide-react';
+import {  Search } from 'lucide-react';
 import popcornIcon from '../assets/popcorn.ico'
 import movieImage from '../assets/Filmrent.png'
 import { useEffect, useState } from 'react';
 import useMoviesData from '../hooks/useMoviesData';
-
+import {  Link } from 'react-router-dom';
 
 
 const MovieCollection = () => {
@@ -45,12 +45,13 @@ const MovieCollection = () => {
                         <option>Sort by</option>
                     </select>
                 </div>
-
                 <div className='movielist-container'>
                     {movies.map((movie) => (
-
                         <div key={movie.id} className='movieListItem'>
+                            <Link to={`/movie-info/${movie.id}`} className='movieLink'>
                             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className='movieImage' />
+                            </Link>
+                           
                             <div className='flexRatingYear'>
                                 <img src={popcornIcon} alt="Popcorn icon" className='popcornIcon' />
                                 <span className='ratingYearTxt'>{trimRatingNumber(movie.vote_average)} | {extractYear(movie.release_date)}</span>

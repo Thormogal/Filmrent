@@ -39,7 +39,6 @@ body {
     height: 2rem;
     border-radius: 20px;
     padding-left: 10px;
-    /* margin: 50px; */
     margin-right: 20px;
 }
 .filterMovieContainer {
@@ -54,15 +53,15 @@ body {
 .movielist-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: 400px;
-    column-gap: 0px;
+    grid-auto-rows: 420px;
+    column-gap: 10px;
     row-gap: 0px;
     margin-top: 10px;
     flex-wrap: wrap;
 }
 .movieImage{
-    width: 90%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     box-shadow: 6px 8px 8px gray;
     border: 1px solid rgb(102, 102, 102);
@@ -70,6 +69,8 @@ body {
 
 .movieListItem {
     height: 100%;
+    width: 90%;
+ 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -79,6 +80,11 @@ body {
 .movieListItem > * {
     margin: 4px;
 }
+.movieLink {
+    border-radius: 20px;
+    box-shadow: 6px 8px 8px gray;
+    border: 1px solid rgb(102, 102, 102);
+}
 /* .filterSelect {
     
 } */
@@ -87,7 +93,6 @@ body {
 
 .flexRatingYear {
     display: flex;
-    margin-bottom: 0px ;
     font-size: 14px;
     align-items: center;
     
