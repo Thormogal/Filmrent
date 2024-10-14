@@ -1,7 +1,7 @@
 body {
     margin: 0px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    
+
 }
 
 .search-barMovie {
@@ -54,20 +54,27 @@ body {
 .movielist-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 400px;
     column-gap: 0px;
+    row-gap: 0px;
     margin-top: 10px;
     flex-wrap: wrap;
 }
 .movieImage{
-    width: 80%;
+    width: 90%;
+    height: 80%;
     border-radius: 20px;
     box-shadow: 6px 8px 8px gray;
     border: 1px solid rgb(102, 102, 102);
 }
 
 .movieListItem {
-    height: 90%;
-    margin-bottom: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+
 }
 .movieListItem > * {
     margin: 4px;
@@ -82,7 +89,6 @@ body {
     display: flex;
     margin-bottom: 0px ;
     font-size: 14px;
-    /* border: 2px solid gray; */
     align-items: center;
     
 }
