@@ -3,7 +3,7 @@ import { fetchMovies, fetchGenres, fetchSearchResults } from "../features/movieL
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 
-const useMoviesData = (query) => {
+const useMoviesData = (query, genreId) => {
     const dispatch = useDispatch();
     const genres = useSelector((state) => state.movies.genres);
     const movies = useSelector((state) => state.movies.movies);
@@ -19,13 +19,13 @@ const useMoviesData = (query) => {
    
 
     useEffect(() => {
-        if (query) {
-            dispatch(fetchSearchResults(query));
+        if (query || genreId ) {
+            dispatch(fetchSearchResults({ query, genreId }));
         }
-    }, [query, dispatch]);
+    }, [query, genreId, dispatch]);
+    
 
-
-    return { genres, movies, loading, searchResults, error, query };
+    return { genres, movies, loading, searchResults, error};
 }
 
 export default useMoviesData;

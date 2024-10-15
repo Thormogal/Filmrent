@@ -104,6 +104,12 @@ body {
 .ratingYearTxt {
     margin-left: 0px;
 }
+.buttonShow {
+    background: linear-gradient(to bottom, #D6A432, #A3221C);
+    margin-bottom: 20px;
+    width: 200px;
+    align-self: center;
+}
 /* 
 @media (max-width: 768px) {
 
