@@ -23,11 +23,25 @@ export const fetchMovies = createAsyncThunk('movies/fetchMovies', async () => {
     console.log("movies", response.data.results);
     return response.data.results;
 })
-export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', async (query) => {
-    const response = await axios.get(`${apiUrl}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`)
-    return response.data.results;
+export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', async ({ query, genreId }) => {
+    const queryString = query ? `&query=${encodeURIComponent(query)}` : '';
+    const genreString = genreId ? `&with_genres=${genreId}` : '';
+    console.log('1.query:', query, '2.genreId:', genreId);
 
-})
+
+    let response;
+    if(!genreId) {
+        response = await axios.get(`${apiUrl}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`)
+    } else if (!query) {
+       response = await axios.get( `${apiUrl}/discover/movie?api_key=${apiKey}&with_genres=${genreId}`)
+    } else {
+        response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${queryString}${genreString}`);
+    }
+    
+    return response.data.results;
+});
+
+
 const movieSlice = createSlice({
     name: 'movies',
     initialState,
@@ -70,8 +84,7 @@ const movieSlice = createSlice({
         .addCase(fetchSearchResults.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
-        });
-
+        })
     }
 })
 
