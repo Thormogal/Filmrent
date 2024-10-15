@@ -18,9 +18,9 @@ function IndividualMovieInfo() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const getFullLanguageName = (langCode) => {
-    if (!langCode) return '';
+    if (!langCode) return 'Unknown';
     const fullLanguage = isoLanguages.getName(langCode);
-    return fullLanguage ? fullLanguage.charAt(0).toUpperCase() + fullLanguage.slice(1) : langCode;
+    return fullLanguage ? fullLanguage.charAt(0).toUpperCase() + fullLanguage.slice(1) : 'Unknown';
   };
 
   if (loading) {
@@ -35,7 +35,10 @@ function IndividualMovieInfo() {
     return <p>No movie data found.</p>;
   }
 
-  const { fullPrice, discountPrice, isAnniversary } = calculatePrice(movie.release_date);  
+  // Kontrollera om release_date finns och är giltigt
+  const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown';
+
+  const { fullPrice, discountPrice, isAnniversary } = calculatePrice(movie.release_date);
 
   const handleBuy = () => {
     let movieToBuy = {
@@ -46,21 +49,20 @@ function IndividualMovieInfo() {
     };
 
     dispatch(addToCart(movieToBuy));
-};
+  };
 
   return (
     <div className="movie-layout-wrapper">
       <div className="movie-content-wrapper">
         <div className="movie-details-container">
           <div className="movie-title-container">
-            <h1>{movie.title} <span className="movie-release-year">({new Date(movie.release_date).getFullYear()})</span></h1>
+            <h1>{movie.title} <span className="movie-release-year">({releaseYear})</span></h1>
           </div>
           <img
             src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderPoster}
             alt={movie.title}
             className="movie-poster"
           />
-          
 
           <div className="movie-price-container">
             {isAnniversary ? (
@@ -79,19 +81,18 @@ function IndividualMovieInfo() {
           </div>
         </div>
 
-
         <div className="movie-extra-info-container">
           <div className="movie-meta-info">
             <div className="movie-meta-left">
               <div className="movie-characteristics">
                 <div className="movie-genre">
-                  <strong>Genre:</strong> <span>{movie.genres && movie.genres.map(genre => genre.name).join(', ')}</span>
+                  <strong>Genre:</strong> <span>{movie.genres && movie.genres.length > 0 ? movie.genres.map(genre => genre.name).join(', ') : 'Unknown'}</span>
                 </div>
                 <div className="movie-language">
                   <strong>Language:</strong> <span>{getFullLanguageName(movie.original_language)}</span>
                 </div>
                 <div className="movie-runtime">
-                  <strong>Runtime:</strong> <span>{Math.floor(movie.runtime / 60)}h {movie.runtime % 60}min</span>
+                  <strong>Runtime:</strong> <span>{movie.runtime ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}min` : 'Unknown'}</span>
                 </div>
               </div>
             </div>
@@ -99,7 +100,9 @@ function IndividualMovieInfo() {
             <div className="movie-review-and-buttons">
               <div className="review-icon">
                 <img src={reviewIcon} alt="Review Icon" className="review-icon-img" />
-                <p className="movie-rating">{movie.vote_average} / 10</p>
+                <p className="movie-rating">
+                  {movie.vote_average ? `${movie.vote_average.toFixed(1)} / 10` : 'No rating available'}
+                </p>
               </div>
               <div className="movie-button-wrapper">
                 <button className="trailer-button" onClick={() => setModalIsOpen(true)}>
@@ -114,17 +117,17 @@ function IndividualMovieInfo() {
 
           <div className="movie-description">
             <h2>Movie Description</h2>
-            <p>{movie.overview}</p>
+            <p>{movie.overview ? movie.overview : 'No description available.'}</p>
           </div>
 
           <div className="movie-cast">
             <h3>Cast & Contribution</h3>
             <div className="movie-characteristics">
               <div className="movie-director">
-                <strong>Director:</strong> <span>{credits ? credits.crew.filter(crew => crew.job === 'Director').map(d => d.name).join(', ') : 'N/A'}</span>
+                <strong>Director:</strong> <span>{credits && credits.crew ? credits.crew.filter(crew => crew.job === 'Director').map(d => d.name).join(', ') : 'N/A'}</span>
               </div>
               <div className="movie-actors">
-                <strong>Actors:</strong> <span>{credits ? credits.cast.slice(0, 5).map(actor => actor.name).join(', ') : 'N/A'}</span>
+                <strong>Actors:</strong> <span>{credits && credits.cast ? credits.cast.slice(0, 5).map(actor => actor.name).join(', ') : 'N/A'}</span>
               </div>
             </div>
           </div>
