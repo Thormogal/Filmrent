@@ -10,6 +10,8 @@ import TrailerModal from '/src/Components/trailerModal.jsx';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../features/cart';
 import { calculatePrice } from '../utils/priceCalculator.js';
+import { addToSavedList } from '../features/profile.js'; 
+import { title } from 'framer-motion/client';
 
 function IndividualMovieInfo() {
   const dispatch = useDispatch();
@@ -50,6 +52,17 @@ function IndividualMovieInfo() {
     };
 
     dispatch(addToCart(movieToBuy));
+  };
+
+  const handleAddToFavorites = () => {
+    const movieToSave = {
+      movieID: movie.id,
+      title: movie.title,
+      price: fullPrice
+    };
+    dispatch(addToSavedList(movieToSave));
+
+    alert(`${movie.title} has been added to your favorites!`);
   };
 
   return (
@@ -132,7 +145,7 @@ function IndividualMovieInfo() {
                 <button className="trailer-button" onClick={() => setModalIsOpen(true)}>
                   <i className="fas fa-play play-icon"></i> Watch Trailer
                 </button>
-                <button className="favorite-button">
+                <button className="favorite-button" onClick={handleAddToFavorites}>
                   <i className="fas fa-heart"></i> Add to Favorites
                 </button>
               </div>
