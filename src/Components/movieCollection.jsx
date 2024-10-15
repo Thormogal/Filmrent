@@ -12,27 +12,11 @@ import { fetchSearchResults } from '../features/movieListSlice';
 
 const MovieCollection = () => {
 
-    const [inputText, setInputText] = useState('');
-    const [genreId, setGenreId] = useState('');
-    const { genres, movies, searchResults, loading, error } = useMoviesData();
-    // const [query, setQuery] = useState('');
+
+    const { genres, movies, searchResults, loading, error , sortOptions, handleKeyDown, handleGenreChange, handleSortChange, inputText, setInputText, genreId, selectedSortValue } = useMoviesData();
+
 
     const dispatch = useDispatch();
-
-    const handleKeyDown= (e) => {
-        if(e.key === 'Enter') {
-            setGenreId('');
-            dispatch(fetchSearchResults({ query: inputText, genreId : '' }));
-        }
-    } 
-
-    const handleGenreChange = (e) => {
-        const selectedGenreId = e.target.value;
-        setGenreId(selectedGenreId);
-        if (selectedGenreId) {
-            dispatch(fetchSearchResults({ query: inputText, genreId: selectedGenreId }));
-        }
-    };
 
     if (loading) {
         return <div>Loading...</div>
@@ -46,8 +30,8 @@ const MovieCollection = () => {
     return (
         <main className='moviesPage-container'>
             <div className="search-barMovie">
-                <Search className="search-iconMovie" size={20}  />
-                <input type="text" value={inputText} placeholder="Search for movies, series, and more..." onChange={e => setInputText(e.target.value)} id='inputText' onKeyDown={handleKeyDown}  />
+                <Search className="search-iconMovie" size={20} />
+                <input type="text" value={inputText} placeholder="Search for movies, series, and more..." onChange={e => setInputText(e.target.value)} id='inputText' onKeyDown={handleKeyDown} />
             </div>
 
             <section className='filterMovieContainer'>
@@ -59,12 +43,17 @@ const MovieCollection = () => {
                             <option key={genre.id} value={genre.id}>{genre.name}</option>
                         ))}
                     </select>
-                    <select>
-                        <option>Sort by</option>
+                    <select value={selectedSortValue} onChange={handleSortChange}>
+                        <option value="">Sort by</option>
+                        {sortOptions.map((option)=> (
+                            <option key={option.id} value={option.id}>{option.name}</option>
+                        )
+                        )}
+                        
                     </select>
                 </div>
                 <div className='movielist-container'>
-                {(searchResults.length > 0 ? searchResults : movies).map((movie) => (
+                    {(searchResults.length > 0 ? searchResults : movies).map((movie) => (
                         <div key={movie.id} className='movieListItem'>
                             <Link to={`/movie-info/${movie.id}`} className='movieLink'>
                                 <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' />
@@ -79,7 +68,7 @@ const MovieCollection = () => {
                 </div>
                 <button className='buttonShow'>Show more</button>
             </section>
-            
+
         </main>
     )
 }
