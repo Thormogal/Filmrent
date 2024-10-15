@@ -29,7 +29,6 @@ const Header = ({showSmallCart, setShowSmallCart}) => {
         <nav className={`navigation-links ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/" className="nav-link" onClick={toggleMenu}>Home</Link>
           <Link to="/movies" className="nav-link" onClick={toggleMenu}>Movies</Link>
-          <Link to="/series" className="nav-link" onClick={toggleMenu}>Series</Link>
           <Link to="/Contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
         </nav>
         <div className="auth-buttons">

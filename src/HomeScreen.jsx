@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/HomeScreen.css';
 
 const HomeScreen = () => {
-  const [trendingMedia, setTrendingMedia] = useState([]);
-  const [latestShows, setLatestShows] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLoadingTrending, setIsLoadingTrending] = useState(true);
-  const [isLoadingLatest, setIsLoadingLatest] = useState(true);
+  const [isLoadingPopular, setIsLoadingPopular] = useState(true);
+  const [isLoadingTopRated, setIsLoadingTopRated] = useState(true);
   
   const navigate = useNavigate();
 
@@ -22,32 +22,32 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    const fetchTrendingMedia = async () => {
+    const fetchPopularMovies = async () => {
       try {
-        const response = await fetch('https://api.themoviedb.org/3/trending/all/day?language=en-US', apiOptions);
+        const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', apiOptions);
         const data = await response.json();
-        setTrendingMedia(data.results.slice(0, 9));
+        setPopularMovies(data.results.slice(0, 9));
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoadingTrending(false);
+        setIsLoadingPopular(false);
       }
     };
 
-    const fetchLatestShows = async () => {
+    const fetchTopRatedMovies = async () => {
       try {
-        const response = await fetch('https://api.themoviedb.org/3/tv/popular?language=en-US&page=1', apiOptions);
+        const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', apiOptions);
         const data = await response.json();
-        setLatestShows(data.results.slice(0, 10));
+        setTopRatedMovies(data.results.slice(0, 10));
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoadingLatest(false);
+        setIsLoadingTopRated(false);
       }
     };
 
-    fetchTrendingMedia();
-    fetchLatestShows();
+    fetchPopularMovies();
+    fetchTopRatedMovies();
   }, []);
 
   useEffect(() => {
@@ -76,12 +76,30 @@ const HomeScreen = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleSeeAllTrending = () => {
+  const handleSeeAllPopular = () => {
     navigate('/movies');
   };
 
-  const handleSeeAllLatest = () => {
+  const handleSeeAllTopRated = () => {
     navigate('/movies');
+  };
+
+  const fetchDetailedMovieInfo = async (id) => {
+    try {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=969711e2af0eb0ae98eb015d7f3a706c&append_to_response=credits,videos`, apiOptions);
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  };
+
+  const handleMovieClick = async (movie) => {
+    const detailedInfo = await fetchDetailedMovieInfo(movie.id);
+    if (detailedInfo) {
+      navigate(`/movie-info/${movie.id}`, { state: { mediaType: 'movie', mediaData: detailedInfo } });
+    }
   };
 
   return (
@@ -103,7 +121,11 @@ const HomeScreen = () => {
         {searchResults.length > 0 && (
           <div className="search-results">
             {searchResults.map((movie) => (
-              <div key={movie.id} className="search-result-item">
+              <div 
+                key={movie.id} 
+                className="search-result-item"
+                onClick={() => handleMovieClick(movie)}
+              >
                 <img 
                   src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} 
                   alt={movie.title}
@@ -118,25 +140,29 @@ const HomeScreen = () => {
 
       <section className="content-section">
         <div className="section-header">
-          <h2 className="section-title">Trending Now</h2>
-          <button className="see-all-btn" onClick={handleSeeAllTrending}>
+          <h2 className="section-title">Popular Movies</h2>
+          <button className="see-all-btn" onClick={handleSeeAllPopular}>
             See All <ChevronRight size={20} />
           </button>
         </div>
         <div className="thumbnail-list">
-          {isLoadingTrending ? (
-            <p>Loading trending media...</p>
+          {isLoadingPopular ? (
+            <p>Loading popular movies...</p>
           ) : (
-            trendingMedia.map((item) => (
-              <div key={item.id} className="thumbnail-item">
+            popularMovies.map((movie) => (
+              <div 
+                key={movie.id} 
+                className="thumbnail-item"
+                onClick={() => handleMovieClick(movie)}
+              >
                 <div className="thumbnail-image">
                   <img 
-                    src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} 
-                    alt={item.title || item.name}
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} 
+                    alt={movie.title}
                     className="media-poster"
                   />
                 </div>
-                <span className="thumbnail-label">{item.title || item.name}</span>
+                <span className="thumbnail-label">{movie.title}</span>
               </div>
             ))
           )}
@@ -145,38 +171,46 @@ const HomeScreen = () => {
 
       <section className="content-section">
         <div className="section-header">
-          <h2 className="section-title">Latest</h2>
-          <button className="see-all-btn" onClick={handleSeeAllLatest}>
+          <h2 className="section-title">Top Rated Movies</h2>
+          <button className="see-all-btn" onClick={handleSeeAllTopRated}>
             See All <ChevronRight size={20} />
           </button>
         </div>
         <div className="latest-grid">
-          {isLoadingLatest ? (
-            <p>Loading latest shows...</p>
+          {isLoadingTopRated ? (
+            <p>Loading top rated movies...</p>
           ) : (
             <>
-              {latestShows.slice(0, 2).map((show) => (
-                <div key={show.id} className="grid-item large">
+              {topRatedMovies.slice(0, 2).map((movie) => (
+                <div 
+                  key={movie.id} 
+                  className="grid-item large"
+                  onClick={() => handleMovieClick(movie)}
+                >
                   <div className="image-container">
                     <img 
-                      src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} 
-                      alt={show.name}
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                      alt={movie.title}
                       className="latest-poster"
                     />
                   </div>
-                  <span className="grid-item-label">{show.name}</span>
+                  <span className="grid-item-label">{movie.title}</span>
                 </div>
               ))}
-              {latestShows.slice(2, 10).map((show) => (
-                <div key={show.id} className="grid-item">
+              {topRatedMovies.slice(2, 10).map((movie) => (
+                <div 
+                  key={movie.id} 
+                  className="grid-item"
+                  onClick={() => handleMovieClick(movie)}
+                >
                   <div className="image-container">
                     <img 
-                      src={`https://image.tmdb.org/t/p/w500${show.poster_path}`} 
-                      alt={show.name}
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                      alt={movie.title}
                       className="latest-poster"
                     />
                   </div>
-                  <span className="grid-item-label">{show.name}</span>
+                  <span className="grid-item-label">{movie.title}</span>
                 </div>
               ))}
             </>
