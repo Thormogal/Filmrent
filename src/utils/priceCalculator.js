@@ -13,7 +13,9 @@ export const calculatePrice = (releaseDate) => {
   }
 
   const currentMonth = currentDate.getMonth();
-  let isAnniversary = releaseMonth === currentMonth;
+  
+  let isAnniversary = releaseMonth === currentMonth && releaseYear < currentYear;
+  
   let discountPrice = isAnniversary ? basePrice - 10 : basePrice;
 
   return {
