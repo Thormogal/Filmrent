@@ -27,6 +27,8 @@ const Payment = () => {
         });
         dispatch(resetCart());
         
+        alert("Purchase confirmed! Your movies have been added to the rented list.")
+        
     }
 
     return (
