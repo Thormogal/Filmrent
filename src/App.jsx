@@ -12,6 +12,9 @@ import Contact from './Contact';
 import CheckOut from './Components/CheckOut';
 import IndividualMovieInfo from './Components/individualMovieInfo';
 import CartSmall from './Components/CartSmall';
+import {animate, motion} from 'framer-motion';
+import CartToast from './Components/CartToast';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
 
@@ -19,12 +22,28 @@ function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
   const apiToken = import.meta.env.VITE_API_READTOKEN;
   const [showSmallCart, setShowSmallCart] = useState(false);
+  // const [showToast, setShowToast] = useState(false);
+  const dispatch =  useDispatch();
+  const showToast = useSelector(state => state.cart.showToast);
 
   return (
     <div className="app-container">
       <Header showSmallCart={showSmallCart} setShowSmallCart={setShowSmallCart}/>
       <main className="main-content">
-        {showSmallCart && <CartSmall showSmallCart={showSmallCart} setShowSmallCart={setShowSmallCart}/>}
+        <motion.div className='cart-small'
+        initial={{x: "100%"}}
+          animate={{x: showSmallCart ? '0%': '100%'}}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }} >
+            <CartSmall showSmallCart={showSmallCart} setShowSmallCart={setShowSmallCart} />
+
+        </motion.div>
+       <button onClick={() => dispatch(showToast(true))}>Klick</button>
+       <motion.div className='cart-toast'
+        initial={{opacity: 0}}
+        animate={{opacity: showToast ? 1 : 0}}
+       >
+          <CartToast/>
+       </motion.div>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path='/movies' element={<MovieCollection />} />

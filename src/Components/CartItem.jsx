@@ -10,6 +10,12 @@ const imageURL = `https://image.tmdb.org/t/p/original${item.poster_path}`
 
 
     const dispatch = useDispatch();
+
+    const handleDelete = (item) => {
+        const id = item.id;
+        const message = `${item.title} was removed from your cart.`
+        dispatch(removeFromCart({id, message}))
+    }
     return ( 
 
         
@@ -31,7 +37,7 @@ const imageURL = `https://image.tmdb.org/t/p/original${item.poster_path}`
                 
             </div>
             <div className='right'>
-                <MdDelete className='icon-delete' onClick={() => dispatch(removeFromCart(item.id))}/>
+                <MdDelete className='icon-delete' onClick={() => handleDelete(item)}/>
             </div>
         </div>
      );

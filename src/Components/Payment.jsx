@@ -14,7 +14,7 @@ const Payment = () => {
 
     const [paymentMethod, setPaymentMethod] = useState('card');
     const dispatch = useDispatch();
-    const cart = useSelector(state => state.cart);
+    const cart = useSelector(state => state.cart.cart);
 
     const handleChangePaymentMethod = (e) => {
         setPaymentMethod(e);
@@ -26,6 +26,8 @@ const Payment = () => {
             
         });
         dispatch(resetCart());
+
+        //Go to movie or profile?
         
     }
 

@@ -16,7 +16,7 @@ const CartSummary = ({ showCart, setShowCart }) => {
     const [code, setCode] = useState('');
     const [coupon, setCoupon] = useState(null);
 
-    const cart = useSelector(state => state.cart);
+    const cart = useSelector(state => state.cart.cart);
 
     const calculateTotalFullPrice = () => {
         return cart.reduce((total, item) => total + item.fullPrice, 0).toFixed(2);

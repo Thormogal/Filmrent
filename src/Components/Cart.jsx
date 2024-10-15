@@ -7,7 +7,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 const Cart = () => {
 
-    const cart = useSelector(state => state.cart);
+    const cart = useSelector(state => state.cart.cart);
 
     return ( 
         <section className="cart box-shadow">

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoImage from '../public/Filmrent 2.png';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User,ShoppingCart } from 'lucide-react';
 import '../styles/Header.css';
-import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import Badge from '@mui/material/Badge';
 
@@ -11,7 +10,8 @@ import Badge from '@mui/material/Badge';
 const Header = ({showSmallCart, setShowSmallCart}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector(state => state.cart.cart);
+  console.log(cart);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -33,12 +33,15 @@ const Header = ({showSmallCart, setShowSmallCart}) => {
           <Link to="/Contact" className="nav-link" onClick={toggleMenu}>Contact</Link>
         </nav>
         <div className="auth-buttons">
-          <Badge badgeContent={cart.length} color="primary">
-            <FaShoppingCart className='icon-header pointer' onClick={() => setShowSmallCart(!showSmallCart)}/>
-          </Badge>
+          
           <Link to="/profile" className="profile-button">
             <User size={24} />
           </Link>
+          <div className='profile-button'>
+            <Badge badgeContent={cart.length} color="primary">
+              <ShoppingCart className='pointer ' size={24} onClick={() => setShowSmallCart(!showSmallCart)}/>
+            </Badge>
+          </div>
         </div>
         
       </div>
