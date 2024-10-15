@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 
 
+
 const Profile = () => {
     const dispatch = useDispatch();
 
@@ -56,7 +57,7 @@ const Profile = () => {
                 </button>
                 {showSavedMovies && (
                     <ul>
-                        {savedList.lenght > 0 ? (
+                        {savedList.length > 0 ? (
                             savedList.map((movie, index) => (
                                 <li key={movie.movieID || index}>
                                     <strong>{movie.title}</strong> - Price: ${movie.price}
