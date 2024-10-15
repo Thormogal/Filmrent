@@ -10,8 +10,8 @@ const Profile = () => {
     const [showBoughtMovies, setShowBoughtMovies] = useState(false);
     const [showSavedMovies, setShowSavedMovies] = useState(false);
 
-    const boughtList = useSelector((state) => state.profile.boughtList);
-    const savedList = useSelector((state) => state.profile.savedList);
+    const boughtList = useSelector((state) => state.profile.boughtList) || [] ;
+    const savedList = useSelector((state) => state.profile.savedList) || [] ;
 
 
     const toggleBoughtMovies = () => {
@@ -33,15 +33,13 @@ const Profile = () => {
                 </button>
                 {showBoughtMovies && (
                     <ul>
-                        {boughtList.lenght > 0 ? (
+                        {boughtList.length > 0 ? (
                             boughtList.map((movie, index) => (
-                                movie.movieID && (
-                                    <li key={movie.movieID || index}>
-                                        {movie.title} - ${movie.price}
-                                        <button onClick={() => dispatch(removeFromBoughtList(movie.movieID))}>Remove</button>
 
-                                    </li>
-                                )
+                                <li key={movie.movieID || index}>
+                                    <strong>{movie.title}</strong> - Price: ${movie.price}
+                                </li>
+
                             ))
 
                         ) : (
@@ -60,12 +58,10 @@ const Profile = () => {
                     <ul>
                         {savedList.lenght > 0 ? (
                             savedList.map((movie, index) => (
-                                movie.movieID && (
-                                    <li key={movie.movieID || index}>
-                                        {movie.title} - ${movie.price}
-                                        <button onClick={() => dispatch(removeFromSavedList(movie.movieID))}>Remove</button>
-                                    </li>
-                                )
+                                <li key={movie.movieID || index}>
+                                    <strong>{movie.title}</strong> - Price: ${movie.price}
+                                </li>
+
                             ))
 
                         ) : (
