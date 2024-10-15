@@ -8,6 +8,7 @@ const useMoviesData = () => {
     const [inputText, setInputText] = useState('');
     const [genreId, setGenreId] = useState('');
     const [selectedSortValue, setSelectedSortValue] = useState();
+    const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const genres = useSelector((state) => state.movies.genres);
     const movies = useSelector((state) => state.movies.movies);
@@ -45,22 +46,35 @@ const useMoviesData = () => {
         if (e.key === 'Enter') {
             setGenreId('');
             setSelectedSortValue('');
-            dispatch(fetchSearchResults({ query: inputText, genreId: '' , sortValue: ''}));
+            setPage(1);
+            dispatch(fetchSearchResults({ query: inputText, genreId: '' , sortValue: '', page: 1}));
         }
     }
 
     const handleGenreChange = (e) => {
         const selectedGenreId = e.target.value;
         setGenreId(selectedGenreId);
+        setPage(1);
         if (selectedGenreId) {
-            dispatch(fetchSearchResults({ query: inputText, genreId: selectedGenreId , sortValue : selectedSortValue}));
+            dispatch(fetchSearchResults({ query: inputText, genreId: selectedGenreId , sortValue : selectedSortValue, page : 1}));
         }
     };
     const handleSortChange = (e) => {
         const selectedSortedValue = e.target.value;
         setSelectedSortValue(selectedSortedValue);
-            dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortedValue }));
+        setPage(1);
+            dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortedValue, page : 1 }));
     };
+    const handleShowMore = () => {
+        const nextPage = page + 1;
+        setPage(nextPage);
+        if(inputText ||genreId || selectedSortValue) {
+            dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortValue, page: nextPage }));
+        } else {
+            dispatch(fetchMovies(nextPage));
+        }
+        
+    }
     return { 
         genres,
          movies, 
@@ -71,6 +85,7 @@ const useMoviesData = () => {
         handleKeyDown, 
         handleGenreChange,
          handleSortChange,
+         handleShowMore,
           inputText, 
           setInputText, 
           genreId,
