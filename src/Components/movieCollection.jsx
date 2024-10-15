@@ -12,9 +12,7 @@ import { fetchSearchResults } from '../features/movieListSlice';
 
 const MovieCollection = () => {
 
-
-    const { genres, movies, searchResults, loading, error , sortOptions, handleKeyDown, handleGenreChange, handleSortChange, inputText, setInputText, genreId, selectedSortValue } = useMoviesData();
-
+    const { genres, movies, searchResults, loading, error , sortOptions, handleKeyDown, handleGenreChange, handleSortChange, handleShowMore, inputText, setInputText, genreId, selectedSortValue } = useMoviesData();
 
     const dispatch = useDispatch();
 
@@ -31,7 +29,7 @@ const MovieCollection = () => {
         <main className='moviesPage-container'>
             <div className="search-barMovie">
                 <Search className="search-iconMovie" size={20} />
-                <input type="text" value={inputText} placeholder="Search for movies, series, and more..." onChange={e => setInputText(e.target.value)} id='inputText' onKeyDown={handleKeyDown} />
+                <input type="text" value={inputText} placeholder="Search for movies..." onChange={e => setInputText(e.target.value)} id='inputText' onKeyDown={handleKeyDown} />
             </div>
 
             <section className='filterMovieContainer'>
@@ -66,7 +64,7 @@ const MovieCollection = () => {
                         </div>
                     ))}
                 </div>
-                <button className='buttonShow'>Show more</button>
+                <button className='buttonShow' onClick={handleShowMore}>Show more</button>
             </section>
 
         </main>

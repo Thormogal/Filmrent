@@ -18,25 +18,27 @@ export const fetchGenres = createAsyncThunk('movies/fetchGenres', async () => {
     return response.data.genres;
 })
 
-export const fetchMovies = createAsyncThunk('movies/fetchMovies', async () => {
-    const response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}`)
+export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (page = 1) => {
+    const pageString = `&page=${page}`; 
+    const response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${pageString}`)
     console.log("movies", response.data.results);
     return response.data.results;
 })
-export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', async ({ query, genreId, sortValue }) => {
+export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', async ({ query, genreId, sortValue, page = 1 }) => {
     const queryString = query ? `&query=${encodeURIComponent(query)}` : '';
     const genreString = genreId ? `&with_genres=${genreId}` : '';
-    const sortString = sortValue ? `&sort_by=${sortValue}` : ''; 
-    console.log('1.query:', query, '2.genreId:', genreId, '3. sortvalue:', sortValue);
+    const sortString = sortValue ? `&sort_by=${sortValue}` : '';
+    const pageString = `&page=${page}`;  
+    console.log('1.query:', query, '2.genreId:', genreId, '3. sortvalue:', sortValue, '4.page:', page);
 
 
     let response;
     if(!genreId && !sortValue) {
-        response = await axios.get(`${apiUrl}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`);
+        response = await axios.get(`${apiUrl}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}${pageString}`);
     } else if (!query) {
-       response = await axios.get( `${apiUrl}/discover/movie?api_key=${apiKey}${genreString}${sortString}`);
+       response = await axios.get( `${apiUrl}/discover/movie?api_key=${apiKey}${genreString}${sortString}${pageString}`);
     } else {
-        response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${queryString}${genreString}${sortString}`);
+        response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${queryString}${genreString}${sortString}${pageString}`);
     }
     
     return response.data.results;
