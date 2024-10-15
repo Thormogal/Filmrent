@@ -158,7 +158,7 @@ body {
 }
 
 .buy-button:hover,
-.favourite-button:hover,
+.favorite-button:hover,
 .trailer-button:hover {
     background: linear-gradient(to bottom, #B30000, #4D0000);
 }
