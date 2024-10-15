@@ -16,6 +16,7 @@ function IndividualMovieInfo() {
   const { movieId } = useParams();
   const { movie, credits, trailer, loading, error } = useDetailedMovieData(movieId);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showReleaseDate, setShowReleaseDate] = useState(false);
 
   const getFullLanguageName = (langCode) => {
     if (!langCode) return 'Unknown';
@@ -35,8 +36,8 @@ function IndividualMovieInfo() {
     return <p>No movie data found.</p>;
   }
 
-  // Kontrollera om release_date finns och är giltigt
   const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown';
+  const formattedReleaseDate = movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Unknown';
 
   const { fullPrice, discountPrice, isAnniversary } = calculatePrice(movie.release_date);
 
@@ -56,7 +57,27 @@ function IndividualMovieInfo() {
       <div className="movie-content-wrapper">
         <div className="movie-details-container">
           <div className="movie-title-container">
-            <h1>{movie.title} <span className="movie-release-year">({releaseYear})</span></h1>
+            <h1>
+              {movie.title}
+              <span
+                className="movie-release-year showReleaseDate"
+                onClick={() => setShowReleaseDate(!showReleaseDate)}
+                onMouseDown={(e) => e.preventDefault()}
+                style={{ cursor: 'pointer', color: 'light-grey' }}
+              >
+                ({releaseYear})
+
+              </span>
+            </h1>
+            {showReleaseDate && (
+              <div className="release-date-popup">
+                {new Date(movie.release_date) < new Date() ? (
+                  <p>Released on {new Date(movie.release_date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                ) : (
+                  <p>Releases on {new Date(movie.release_date).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                )}
+              </div>
+            )}
           </div>
           <img
             src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderPoster}
@@ -81,7 +102,10 @@ function IndividualMovieInfo() {
           </div>
         </div>
 
-        <div className="movie-extra-info-container">
+        <div
+          className="movie-extra-info-container"
+          style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w780${movie.backdrop_path})` }}
+        >
           <div className="movie-meta-info">
             <div className="movie-meta-left">
               <div className="movie-characteristics">
