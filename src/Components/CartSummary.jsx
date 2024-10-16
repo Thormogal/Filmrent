@@ -6,35 +6,59 @@ import { MdDelete } from "react-icons/md";
 import { remmoveCoupon, setCoupon } from '../features/cart';
 import { showToast } from '../features/toastSlice';
 
-
 const CartSummary = ({ showCart, setShowCart }) => {
-   
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [showAddCoupon, setShowAddCoupon] = useState(false);
     const [code, setCode] = useState('');
-    
-
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
 
+    const calculateTotalFullPrice = () => {
+        return cart.cart.reduce((total, item) => total + item.fullPrice, 0);
+    };
+
+    const calculateTotalDiscount = () => {
+        return cart.cart.reduce((total, item) => {
+            const finalPrice = item.discount > 0
+                ? item.fullPrice * (1 - item.discount / 100)
+                : item.fullPrice;
+            return total + (item.fullPrice - finalPrice);
+        }, 0);
+    };
+
+    const calculateCouponDiscount = () => {
+        return cart.coupon ? cart.coupon.discountValue : 0;
+    };
+
+    const calculateTotalPrice = () => {
+        const totalPriceBeforeCoupon = cart.cart.reduce((total, item) => {
+            return total + (item.discount > 0
+                ? item.fullPrice * (1 - item.discount / 100)
+                : item.fullPrice);
+        }, 0);
+        const couponDiscountValue = calculateCouponDiscount();
+        return totalPriceBeforeCoupon - couponDiscountValue;
+    };
 
     const handleAddCouponCode = (text) => {
         const foundCoupon = cart.coupons.find(c => c.code === text);
         if (foundCoupon) {
-            const message = `Coupon ${foundCoupon.code} was added`
+            const message = `Coupon ${foundCoupon.code} was added`;
             dispatch(setCoupon(foundCoupon));
-            dispatch(showToast({showToast: true,message: message}));
+            dispatch(showToast({ showToast: true, message: message }));
         }
-        
         setShowAddCoupon(!showAddCoupon);
     };
 
     const handleDeleteCode = () => {
-       
         dispatch(remmoveCoupon());
-        const message = "Coupon was removed"
-        dispatch(showToast({showToast: true,message: message}));
+        const message = "Coupon was removed";
+        dispatch(showToast({ showToast: true, message: message }));
     };
+
+    const totalFullPrice = calculateTotalFullPrice();
+    const totalDiscount = calculateTotalDiscount() + calculateCouponDiscount();
+    const totalPrice = calculateTotalPrice();
 
     return (
         <section className="cart-summary box-shadow">
@@ -78,15 +102,13 @@ const CartSummary = ({ showCart, setShowCart }) => {
                 <p className='gray'>Discount:</p>
                 <p className='discounted-price'>${cart.totalDiscount}</p>
                 <p className='gray'>Coupon Discount:</p>
-                <p>${cart.totalCouponsDiscount}</p>
+                <p className='discounted-price'>${cart.totalCouponsDiscount}</p>
             </div>
             <div className="bottom-border"></div>
             <div className="summary summary-total flex">
                 <p>Total Amount:</p>
                 <p>${cart.totalPrice}</p>
             </div>
-
-
             {cart.totalSavings > 0 && (
                 <div style={{ color: 'green', textAlign: 'center', fontStyle: 'italic' }}>
                     <p>
@@ -94,6 +116,7 @@ const CartSummary = ({ showCart, setShowCart }) => {
                     </p>
                 </div>
             )}
+
 
             <div className="flex">
                 {showCart &&

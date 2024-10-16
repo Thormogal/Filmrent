@@ -24,7 +24,7 @@ const initialState = {cart: [
 // toastMessage: '', 
 totalFullPrice: 0,
 coupon: null,
-totalSavings: 1,
+totalSavings: 0,
 totalDiscount: 0,
 totalCouponsDiscount: 0,
 couponDiscount: 0,
@@ -39,33 +39,44 @@ coupons: [
 };
 
 const calculateCart = (state) => {
-    const totalFullPrice = state.cart.reduce((total, item) => total + item.fullPrice, 0).toFixed(2);
-    const totalDiscount = state.cart.reduce((total, item) => total + item.discount, 0).toFixed(2);
-    
-    const totalCouponsDiscount = ((totalFullPrice - totalDiscount) * state.couponDiscount).toFixed(2);
-    const totalPrice = (totalFullPrice - totalDiscount - totalCouponsDiscount).toFixed(2);
-    const totalSavings = (parseFloat(totalDiscount) + parseFloat(totalCouponsDiscount)).toFixed(2);
+  const totalFullPrice = state.cart.reduce((total, item) => total + item.fullPrice, 0) || 0;
+  const totalDiscount = state.cart.reduce((total, item) => total + (item.fullPrice - item.finalPrice), 0) || 0;
 
-    state.totalFullPrice = totalFullPrice;
-    state.totalDiscount = totalDiscount;
-    state.totalCouponsDiscount = totalCouponsDiscount;
-    state.totalPrice = totalPrice;
-    state.totalSavings = totalSavings;
-    
-    const discountExists = state.totalDiscount > 0;
-    const couponExists = state.totalCouponsDiscount > 0;
+  // Se till att subtotal alltid är positiv och att rabatter inte överstiger fullpriset
+  const subtotal = Math.max(totalFullPrice - totalDiscount, 0);
 
-    if (discountExists && couponExists) {
-        state.savingsMessage = "with discount and coupons";
-    } else if (discountExists) {
-        state.savingsMessage = "with discount";
-    } else if (couponExists) {
-        state.savingsMessage = "with coupons";
-    } else {
-        state.savingsMessage = "";
-    }
-    
-}
+  // Kupongrabatt beräknad på subtotal
+  const totalCouponsDiscount = state.coupon ? (subtotal * state.couponDiscount) : 0;
+
+  // Total efter kupongavdrag, se till att det inte går under noll
+  const totalPrice = Math.max(subtotal - totalCouponsDiscount, 0).toFixed(2);
+
+  // Sammanlagda besparingar
+  const totalSavings = (parseFloat(totalDiscount) + parseFloat(totalCouponsDiscount)).toFixed(2);
+
+  // Uppdatera state med beräknade värden
+  state.totalFullPrice = totalFullPrice.toFixed(2);
+  state.totalDiscount = totalDiscount.toFixed(2);
+  state.totalCouponsDiscount = totalCouponsDiscount.toFixed(2);
+  state.totalPrice = totalPrice;
+  state.totalSavings = totalSavings;
+
+  const discountExists = state.totalDiscount > 0;
+  const couponExists = state.totalCouponsDiscount > 0;
+
+  if (discountExists && couponExists) {
+      state.savingsMessage = "with discount and coupons";
+  } else if (discountExists) {
+      state.savingsMessage = "with discount";
+  } else if (couponExists) {
+      state.savingsMessage = "with coupons";
+  } else {
+      state.savingsMessage = "";
+  }
+};
+
+
+
 
 
 const cartSlice = createSlice({
@@ -82,13 +93,11 @@ const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       const id = action.payload;
-    //   state.toastMessage = message;
-    //   state.showToast = true;
-    
-        
+  
       state.cart = state.cart.filter(movie => movie.id !== id);
-    
-    },
+  
+      calculateCart(state);
+  },
     resetCart: (state) => {
         state.cart = [];
         
