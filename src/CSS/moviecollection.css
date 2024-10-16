@@ -7,12 +7,11 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 70px;
+    margin-top: 20px;
 }
 .search-barMovie {
     display: flex;
     align-items: center;
-    border: 2px solid gray;
     background-color: rgba(161, 22, 22, 0.1);
     border-radius: 30px;
     padding: 0px 16px;
@@ -142,6 +141,9 @@ display: contents;
 } 
 
 @media (max-width: 428px) {
+    .moviesPage-container { 
+        margin-top: 0px;
+    }
     .search-barMovie {
         height: 30px;
     }
