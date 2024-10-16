@@ -73,10 +73,17 @@ function IndividualMovieInfo() {
   };
 
   const handleAddToFavorites = () => {
-    const movieToSave = {
-      movieID: movie.id,
-      title: movie.title,
-      price: fullPrice
+    // const movieToSave = {
+    //   movieID: movie.id,
+    //   title: movie.title,
+    //   price: fullPrice
+    // };
+    let movieToSave = {
+      ...movie,
+      fullPrice: fullPrice,
+      discount: discount,
+      ...(isAnniversary && { discount: 10 }),
+      finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
     };
     dispatch(addToSavedList(movieToSave));
 

@@ -72,7 +72,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-        console.log(action.payload);
+        
         const {movieToBuy, message} = action.payload;
       state.cart.push(movieToBuy);
       state.toastMessage = message;

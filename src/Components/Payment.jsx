@@ -24,7 +24,7 @@ const Payment = () => {
 
     const handlePay= () => {
         cart.forEach(movie => {
-            dispatch(addToBoughtList({movieID: movie.movieID}));
+            dispatch(addToBoughtList(movie));
             
         });
         dispatch(resetCart());

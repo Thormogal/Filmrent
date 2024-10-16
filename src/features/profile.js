@@ -15,14 +15,14 @@ const initialState = {
             },
             removeFromBoughtList: (state, action) => {
                 const id = action.payload;
-                return state.boughtList.filter(movie => movie.movieID !== id);
+                state.boughtList = state.boughtList.filter(movie => movie.id !== id);
             },
             addToSavedList: (state, action) => {
                 state.savedList.push(action.payload);
             },
             removeFromSavedList: (state, action) => {
                 const id = action.payload;
-                return state.savedList.filter(movie => movie.movieID !== id);
+                state.savedList = state.savedList.filter(movie => movie.id !== id);
             }
         }
     });
