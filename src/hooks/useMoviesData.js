@@ -69,9 +69,11 @@ const useMoviesData = () => {
         const nextPage = page + 1;
         setPage(nextPage);
         if(inputText ||genreId || selectedSortValue) {
-            dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortValue, page: nextPage }));
+           dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortValue, page: nextPage }));
+        
         } else {
-            dispatch(fetchMovies(nextPage));
+             dispatch(fetchMovies(nextPage));
+           
         }
         
     }
