@@ -22,7 +22,7 @@ const MovieCollection = () => {
     if (error) {
         return <div>Error: {error}</div>
     }
-    const trimRatingNumber = (number) => parseFloat(number.toFixed(1))
+    const trimRatingNumber = (number) => Number(number.toFixed(1));
     const extractYear = (date) => new Date(date).getFullYear();
 
     return (
@@ -59,7 +59,7 @@ const MovieCollection = () => {
 
                             <div className='flexRatingYear'>
                                 <img src={popcornIcon} alt="Popcorn icon" className='popcornIcon' />
-                                <span className='ratingYearTxt'>{trimRatingNumber(movie.vote_average)} | {movie.release_date ? extractYear(movie.release_date) : "Unknown"}</span>
+                                <span className='ratingYearTxt'>{ movie.vote_average ? trimRatingNumber(movie.vote_average): "0"} | {movie.release_date ? extractYear(movie.release_date) : "Unknown"}</span>
                             </div>
                         </div>
                     ))}
