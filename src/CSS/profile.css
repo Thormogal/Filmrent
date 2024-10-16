@@ -1,25 +1,128 @@
+.profile {
+    padding: 0 20px;
+}
+
+.profile h1 {
+    font-size: 36px;
+    color: #1d1c1c;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.profile p {
+    font-size: 24px;
+    color: #1d1c1c;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 20px;
+    
+}
+
 .movieImage{
-    width: auto;
-    height: 300px;
-    border-radius: 20px;
+    width: 150px;
+    height: 225px;
+    border-radius: 8px;
     /* box-shadow: 6px 8px 8px gray; */
     border: 1px solid rgb(102, 102, 102);
+    transition: transform 0.3s ease;
+}
+.movieImage:hover {
+    transform: scale(1.05);
 }
 
 ul {
-    width: 100vw;
     
-    
-    overflow: scroll;
+    overflow-x: auto;
     list-style-type: none;
-    display: flex;
-    justify-content: start;
-    margin: 0;
-    padding: 0;
+    display: flex;  
+    gap: 20px;
+    padding-bottom: 20px;
+    scrollbar-width: none;
     
 }
 
+ul::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
 li {
-    margin:10px;
-    
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex-shrink: 0;
+    margin: 10px;
+    align-items: center;
+
+}
+
+.remove-icon {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    cursor: pointer; 
+    z-index: 1; 
+}
+
+.thumbnail-label {
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Responsive Design - Tablet and smaller devices */
+@media (max-width: 768px) {
+    .profile {
+        padding: 0 10px;
+    }
+
+    .profile h1 {
+        font-size: 28px; 
+    }
+
+    .profile p {
+        font-size: 20px; 
+        padding-left: 10px; 
+    }
+
+    ul {
+        gap: 15px; 
+        padding-left: 10px; 
+    }
+
+    .movieImage {
+        width: 120px; 
+        height: 180px; 
+    }
+}
+
+/* Responsive Design - Mobile and smaller devices */
+@media (max-width: 480px) {
+    .profile {
+        padding: 0 10px;
+    }
+
+    .profile h1 {
+        font-size: 24px; 
+    }
+
+    .profile p {
+        font-size: 18px;
+        padding-left: 8px;
+    }
+
+    ul {
+        gap: 10px; 
+        padding-left: 8px;
+    }
+
+    .movieImage {
+        width: 100px;
+        height: 150px;
+    }
 }

@@ -41,10 +41,6 @@ const Profile = () => {
             <h1>Welcome to your profile</h1>
 
             <section>
-                {/* <button onClick={toggleBoughtMovies}>
-                    {showBoughtMovies ? 'Hide Rented Movies' : 'Show Rented Movies'}
-                </button> */}
-                {/* {showBoughtMovies && ( */}
                 <p>Rented Movies</p>
                     <ul>
                         {boughtList.length > 0 ? (
@@ -52,7 +48,10 @@ const Profile = () => {
 
                                 <div key={index}>
                                    
-                                        <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' onClick={() => setModalIsOpen(!modalIsOpen)}/>
+                                        <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} 
+                                        className='movieImage' 
+                                        onClick={() => setModalIsOpen(!modalIsOpen)}
+                                        />
                                     
                                 </div>
                                 // <li key={movie.movieID || index}>
@@ -83,7 +82,8 @@ const Profile = () => {
                                     {/* <strong>{movie.title}</strong> - Price: ${movie.price} */}
                                     <Link to={`/movie-info/${movie.id}`} >
                                         
-                                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' />
+                                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} 
+                                className='movieImage' />
 
                             </Link>
                                 </li>
