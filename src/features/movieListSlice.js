@@ -8,6 +8,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const initialState = {
     genres: [],
     movies: [],
+    searchResults: [],
     loading: false,
     error: null,
 }
@@ -17,11 +18,32 @@ export const fetchGenres = createAsyncThunk('movies/fetchGenres', async () => {
     return response.data.genres;
 })
 
-export const fetchMovies = createAsyncThunk('movies/fetchMovies', async () => {
-    const response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}`)
+export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (page = 1) => {
+    const pageString = `&page=${page}`; 
+    const response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${pageString}`)
     console.log("movies", response.data.results);
     return response.data.results;
 })
+export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', async ({ query, genreId, sortValue, page = 1 }) => {
+    const queryString = query ? `&query=${encodeURIComponent(query)}` : '';
+    const genreString = genreId ? `&with_genres=${genreId}` : '';
+    const sortString = sortValue ? `&sort_by=${sortValue}` : '';
+    const pageString = `&page=${page}`;  
+    console.log('1.query:', query, '2.genreId:', genreId, '3. sortvalue:', sortValue, '4.page:', page);
+
+
+    let response;
+    if(!genreId && !sortValue) {
+        response = await axios.get(`${apiUrl}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}${pageString}`);
+    } else if (!query) {
+       response = await axios.get( `${apiUrl}/discover/movie?api_key=${apiKey}${genreString}${sortString}${pageString}`);
+    } else {
+        response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${queryString}${genreString}${sortString}${pageString}`);
+    }
+    
+    return response.data.results;
+});
+
 
 const movieSlice = createSlice({
     name: 'movies',
@@ -52,7 +74,20 @@ const movieSlice = createSlice({
         .addCase(fetchMovies.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
-        });
+        })
+        .addCase(fetchSearchResults.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+            state.searchResults = [];
+        })
+        .addCase(fetchSearchResults.fulfilled, (state, action) => {
+            state.loading = false;
+            state.searchResults = action.payload;
+        })
+        .addCase(fetchSearchResults.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        })
     }
 })
 
