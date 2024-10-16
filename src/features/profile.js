@@ -11,7 +11,18 @@ const initialState = {
         initialState,
         reducers: {
             addToBoughtList: (state, action) => {
-                state.boughtList.push(action.payload);
+                const movieTimeStamp = {
+                    bought: new Date(),
+                    expirationDays: 1
+
+                }
+                let expirationDate = new Date(movieTimeStamp.bought).setDate(movieTimeStamp.bought.getDate() + movieTimeStamp.expirationDays);
+
+                // let expirationDate = new Date(movieTimeStamp.bought).setDate(movieTimeStamp.bought.getDate() + movieTimeStamp.expirationDays);
+                let tempMovie = action.payload;
+                let movie = {...tempMovie, expirationDate: expirationDate}
+                console.log(expirationDate);                
+                state.boughtList.push(movie);
             },
             removeFromBoughtList: (state, action) => {
                 const id = action.payload;

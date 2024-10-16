@@ -21,13 +21,14 @@ const Profile = () => {
     const savedList = useSelector((state) => state.profile.savedList) || [] ;
 
     
+    
     const handleRemoveFavourite = (movie) => {
         const id = movie.id;
         
         dispatch(removeFromSavedList(id));
     }
     const toggleBoughtMovies = () => {
-        console.log(boughtList);
+        
         setShowBoughtMovies((prev) => !prev);
     };
 
@@ -48,18 +49,33 @@ const Profile = () => {
                 <p>Rented Movies</p>
                     <ul>
                         {boughtList.length > 0 ? (
-                            boughtList.map((movie, index) => (
+                            boughtList.map((movie, index) => {
+                                 const expiratonDate = new Date(movie.expirationDate);
+                                const formattedTime = expiratonDate.toLocaleTimeString('sv-SE', {
+                                    hour: '2-digit', 
+                                    minute: '2-digit'});
+                                const formattedDate = expiratonDate.toLocaleDateString('sv-SE', {
+                                    day: '2-digit',
+                                    month: '2-digit'
+                                });
+
+                                const now = new Date();
+                                const diffInMilliseconds = expiratonDate - now;
+                                const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60)); 
+                                const diffInMinutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)); 
+
+                                return (
 
                                 <div key={index}>
                                    
                                         <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' onClick={() => setModalIsOpen(!modalIsOpen)}/>
-                                    
+                                        {diffInHours > 24 ? <p>Expires: {formattedDate}</p> : <p>Expires: {diffInHours}:{diffInMinutes}</p>}
                                 </div>
                                 // <li key={movie.movieID || index}>
                                 //     <strong>{movie.title}</strong> - Price: ${movie.price}
                                 // </li>
 
-                            ))
+                            )})
 
                         ) : (
                             <p>No rented movies yet.</p>
