@@ -25,7 +25,7 @@ function App() {
   const [showSmallCart, setShowSmallCart] = useState(false);
   // const [showToast, setShowToast] = useState(false);
   const dispatch =  useDispatch();
-  const showToast = useSelector(state => state.cart.showToast);
+  const showToast = useSelector(state => state.toast.showToast);
 
   return (
     <div className="app-container">
@@ -43,7 +43,7 @@ function App() {
         initial={{opacity: 0}}
         animate={{opacity: showToast ? 1 : 0}}
        >
-          <CartToast/>
+          <CartToast />
        </motion.div>
         <Routes>
           <Route path="/" element={<HomeScreen />} />

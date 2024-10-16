@@ -8,7 +8,7 @@ import isoLanguages from 'iso-639-1';
 import TrailerModal from '/src/Components/trailerModal.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, setMessage, setShowToast } from '../features/cart';
+import { addToCart } from '../features/cart';
 import { calculatePrice } from '../utils/priceCalculator.js';
 import {Link} from 'react-router-dom';
 
@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 
 
 import { addToSavedList, removeFromSavedList } from '../features/profile.js';
+import { showToast } from '../features/toastSlice';
 
 
 function IndividualMovieInfo() {
@@ -67,8 +68,9 @@ function IndividualMovieInfo() {
       ...(isAnniversary && { discount: 10 }),
       finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
     };
-    const message = `${movie.title} added to cart.`;
-    dispatch(addToCart({movieToBuy, message}));
+    const message = `${movie.title} was added to cart.`;
+    dispatch(addToCart(movieToBuy));
+    dispatch(showToast({showToast: true,message: message}));
     // dispatch(calculateCart());
     
   };
@@ -90,14 +92,18 @@ function IndividualMovieInfo() {
       ...(isAnniversary && { discount: 10 }),
       finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
     };
+    const message = `${movie.title} was added to favorties`
     dispatch(addToSavedList(movieToSave));
+    dispatch(showToast({showToast: true,message: message}));
 
-    alert(`${movie.title} has been added to your favorites!`);
+    // alert(`${movie.title} has been added to your favorites!`);
   };
 
   const handleRemoveFromFavorites = () => {
     const id = movie.id;
+    const message = `${movie.title} was removed from favorites`
     dispatch(removeFromSavedList(id));
+    dispatch(showToast({showToast: true,message: message}));
   }
 
   return (
@@ -218,7 +224,7 @@ function IndividualMovieInfo() {
                 </button>
                 {profile.savedList.some(item => item.id === movie.id) ?
                  <button className="favorite-button" onClick={handleRemoveFromFavorites}>
-                   <i class="fas fa-heart-circle-xmark"></i>Remove from Favorites
+                   <i className="fas fa-heart-circle-xmark"></i>Remove from Favorites
                 </button> :<button className="favorite-button" onClick={handleAddToFavorites}>
                    <i className="fas fa-heart"></i>Add to Favorites
                 </button> }

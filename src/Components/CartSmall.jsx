@@ -4,6 +4,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { removeFromCart } from '../features/cart';
 import {motion} from 'framer-motion';
+import { showToast } from '../features/toastSlice';
 
 const CartSmall = ({ showSmallCart, setShowSmallCart }) => {
 
@@ -21,7 +22,8 @@ const CartSmall = ({ showSmallCart, setShowSmallCart }) => {
         const id = item.id;
         
         const message = `${item.title} was removed from your cart.`
-        dispatch(removeFromCart({id, message}));
+        dispatch(removeFromCart(id));
+        dispatch(showToast({showToast: true,message: message}));
         
     }
 

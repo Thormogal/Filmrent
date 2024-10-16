@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import '../CSS/Cart.css';
 import { MdDelete } from "react-icons/md";
 import { removeFromCart } from '../features/cart';
+import { showToast } from '../features/toastSlice';
 
 
 const CartItem = ({item}) => {
@@ -13,8 +14,9 @@ const imageURL = `https://image.tmdb.org/t/p/original${item.poster_path}`
 
     const handleDelete = (item) => {
         const id = item.id;
-        const message = `${item.title} was removed from your cart.`
-        dispatch(removeFromCart({id, message}))
+        const message = `${item.title} was removed from your cart.`;
+        dispatch(removeFromCart(id));
+        dispatch(showToast({showToast: true,message: message}));
     }
     return ( 
 
