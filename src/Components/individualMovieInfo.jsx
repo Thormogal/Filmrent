@@ -16,12 +16,13 @@ import { useParams } from 'react-router-dom';
 
 
 
-import { addToSavedList } from '../features/profile.js';
+import { addToSavedList, removeFromSavedList } from '../features/profile.js';
 
 
 function IndividualMovieInfo() {
 
   const cart = useSelector(state => state.cart);
+  const profile = useSelector(state => state.profile);
   const dispatch = useDispatch();
   const { movieId } = useParams();
   const { movie, credits, trailer, loading, error } = useDetailedMovieData(movieId);
@@ -72,6 +73,10 @@ function IndividualMovieInfo() {
     
   };
 
+  const handleWatch = () => {
+    setModalIsOpen(!modalIsOpen);
+  }
+
   const handleAddToFavorites = () => {
     // const movieToSave = {
     //   movieID: movie.id,
@@ -89,6 +94,11 @@ function IndividualMovieInfo() {
 
     alert(`${movie.title} has been added to your favorites!`);
   };
+
+  const handleRemoveFromFavorites = () => {
+    const id = movie.id;
+    dispatch(removeFromSavedList(id));
+  }
 
   return (
     <div className="movie-layout-wrapper">
@@ -139,9 +149,11 @@ function IndividualMovieInfo() {
 
 
           <div className="movie-button-container">
-            {cart.cart.some(item => item.id === movie.id) 
-              ? (<Link to="/checkout"><button className="buy-button">Go to Checkout</button></Link>) 
-              : (<button className="buy-button" onClick={handleBuy}>Buy</button>)
+            {profile.boughtList.some(item => item.id === movie.id) 
+              ? (<button className="buy-button" onClick={handleWatch}>Watch</button>) 
+              : cart.cart.some(item => item.id === movie.id) 
+                ? (<Link to="/checkout"><button className="buy-button">Go to Checkout</button></Link>) 
+                : (<button className="buy-button" onClick={handleBuy}>Buy</button>)
             }
             
           </div>
@@ -204,9 +216,12 @@ function IndividualMovieInfo() {
                 <button className="trailer-button" onClick={() => setModalIsOpen(true)}>
                   <i className="fas fa-play play-icon"></i> Watch Trailer
                 </button>
-                <button className="favorite-button" onClick={handleAddToFavorites}>
-                  <i className="fas fa-heart"></i> Add to Favorites
-                </button>
+                {profile.savedList.some(item => item.id === movie.id) ?
+                 <button className="favorite-button" onClick={handleRemoveFromFavorites}>
+                   <i class="fas fa-heart-circle-xmark"></i>Remove from Favorites
+                </button> :<button className="favorite-button" onClick={handleAddToFavorites}>
+                   <i className="fas fa-heart"></i>Add to Favorites
+                </button> }
               </div>
             </div>
           </div>
