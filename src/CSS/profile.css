@@ -1,0 +1,25 @@
+.movieImage{
+    width: auto;
+    height: 300px;
+    border-radius: 20px;
+    /* box-shadow: 6px 8px 8px gray; */
+    border: 1px solid rgb(102, 102, 102);
+}
+
+ul {
+    width: 100vw;
+    
+    
+    overflow: scroll;
+    list-style-type: none;
+    display: flex;
+    justify-content: start;
+    margin: 0;
+    padding: 0;
+    
+}
+
+li {
+    margin:10px;
+    
+}

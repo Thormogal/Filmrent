@@ -58,7 +58,7 @@ export const fetchMovieById = (movieId) => async (dispatch) => {
     });
 
     const trailer = videosResponse.data.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-
+    console.log(trailer);
     dispatch(fetchMovieSuccess({ 
       movie: movieResponse.data, 
       credits: creditsResponse.data,

@@ -4,69 +4,31 @@ import { RiCoupon5Line } from "react-icons/ri";
 import { useState } from 'react';
 import { MdDelete } from "react-icons/md";
 import { remmoveCoupon, setCoupon } from '../features/cart';
-// import {  getSavingsMessage } from '../features/cart';
+
 
 const CartSummary = ({ showCart, setShowCart }) => {
-    // const coupons = [
-    //     { code: "10%OFF", percentage: 0.1 },
-    //     { code: "20%OFF", percentage: 0.2 },
-    //     { code: "30%OFF", percentage: 0.3 }
-    // ];
-
+   
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [showAddCoupon, setShowAddCoupon] = useState(false);
     const [code, setCode] = useState('');
-    // const [coupon, setCoupon] = useState(null);
+    
 
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
 
-    // const calculateTotalFullPrice = () => {
-    //     return cart.reduce((total, item) => total + item.fullPrice, 0).toFixed(2);
-    // };
-
-    // const calculateDiscount = () => {
-    //     return cart.reduce((total, item) => total + (item.discount || 0), 0).toFixed(2);
-    // };
-
-    // const calculateCouponDiscount = () => {
-    //     return ((calculateTotalFullPrice() - calculateDiscount()) * couponDiscount).toFixed(2);
-    // };
-
-    // const calculateTotal = () => {
-    //     return (calculateTotalFullPrice() - calculateDiscount() - calculateCouponDiscount()).toFixed(2);
-    // };
-
-    // const calculateTotalSavings = () => {
-    //     return (parseFloat(calculateDiscount()) + parseFloat(calculateCouponDiscount())).toFixed(2);
-    // };
-
-    // const getSavingsMessage = () => {
-    //     const discountExists = parseFloat(calculateDiscount()) > 0;
-    //     const couponExists = couponDiscount > 0;
-
-    //     if (discountExists && couponExists) {
-    //         return "with discount and coupons";
-    //     } else if (discountExists) {
-    //         return "with discount";
-    //     } else if (couponExists) {
-    //         return "with coupons";
-    //     }
-    //     return "";
-    // };
 
     const handleAddCouponCode = (text) => {
         const foundCoupon = cart.coupons.find(c => c.code === text);
         if (foundCoupon) {
             dispatch(setCoupon(foundCoupon));
-            // setCouponDiscount(foundCoupon.percentage);
+            
         }
+        
         setShowAddCoupon(!showAddCoupon);
     };
 
     const handleDeleteCode = () => {
-        // setCoupon(null);
-        // setCouponDiscount(0);
+       
         dispatch(remmoveCoupon());
     };
 
