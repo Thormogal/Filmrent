@@ -89,6 +89,9 @@ display: contents;
     box-shadow: 6px 8px 8px gray;
     border: 1px solid rgb(102, 102, 102);
 }
+.movieListImage:hover {
+    transform: scale(1.02);
+}
 
 .flexRatingYear {
     display: flex;
