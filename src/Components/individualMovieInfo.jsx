@@ -8,15 +8,16 @@ import isoLanguages from 'iso-639-1';
 import TrailerModal from '/src/Components/trailerModal.jsx';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, setMessage, setShowToast } from '../features/cart';
+import { addToCart } from '../features/cart';
 import { calculatePrice } from '../utils/priceCalculator.js';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 
 
 
 import { addToSavedList, removeFromSavedList } from '../features/profile.js';
+import { showToast } from '../features/toastSlice';
 
 
 function IndividualMovieInfo() {
@@ -57,32 +58,27 @@ function IndividualMovieInfo() {
     ? new Date(movie.release_date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })
     : 'Unknown';
 
-  const { fullPrice, discountPrice, isAnniversary, discount } = calculatePrice(movie.release_date);
+  const { fullPrice, discountPrice, isAnniversary, discount } = calculatePrice(movie.release_date, movie.runtime);
 
   const handleBuy = () => {
     let movieToBuy = {
       ...movie,
       fullPrice: fullPrice,
       discount: discount,
-      ...(isAnniversary && { discount: 10 }),
-      finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
+      finalPrice: discount > 0 ? fullPrice * (1 - discount / 100) : fullPrice, // Använd procentuell rabatt
+      isAnniversary: isAnniversary
     };
-    const message = `${movie.title} added to cart.`;
-    dispatch(addToCart({movieToBuy, message}));
-    // dispatch(calculateCart());
-    
+    const message = `${movie.title} was added to cart.`;
+    dispatch(addToCart(movieToBuy));
+    dispatch(showToast({ showToast: true, message: message }));
   };
+  
 
   const handleWatch = () => {
     setModalIsOpen(!modalIsOpen);
   }
 
   const handleAddToFavorites = () => {
-    // const movieToSave = {
-    //   movieID: movie.id,
-    //   title: movie.title,
-    //   price: fullPrice
-    // };
     let movieToSave = {
       ...movie,
       fullPrice: fullPrice,
@@ -90,14 +86,16 @@ function IndividualMovieInfo() {
       ...(isAnniversary && { discount: 10 }),
       finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
     };
+    const message = `${movie.title} was added to favorties`
     dispatch(addToSavedList(movieToSave));
-
-    alert(`${movie.title} has been added to your favorites!`);
+    dispatch(showToast({ showToast: true, message: message }));
   };
 
   const handleRemoveFromFavorites = () => {
     const id = movie.id;
+    const message = `${movie.title} was removed from favorites`
     dispatch(removeFromSavedList(id));
+    dispatch(showToast({ showToast: true, message: message }));
   }
 
   return (
@@ -140,7 +138,7 @@ function IndividualMovieInfo() {
               <>
                 <span className="original-price"><s>${fullPrice.toFixed(2)}</s></span>
                 <span className="discount-price">${discountPrice.toFixed(2)}</span>
-                <span className="anniversary-discount">Anniversary Discount Applied!</span>
+                <span className="anniversary-discount">{discount}% Anniversary Discount Applied!</span>
               </>
             ) : (
               <span>${fullPrice.toFixed(2)}</span>
@@ -149,13 +147,13 @@ function IndividualMovieInfo() {
 
 
           <div className="movie-button-container">
-            {profile.boughtList.some(item => item.id === movie.id) 
-              ? (<button className="buy-button" onClick={handleWatch}>Watch</button>) 
-              : cart.cart.some(item => item.id === movie.id) 
-                ? (<Link to="/checkout"><button className="buy-button">Go to Checkout</button></Link>) 
+            {profile.boughtList.some(item => item.id === movie.id)
+              ? (<button className="buy-button" onClick={handleWatch}>Watch</button>)
+              : cart.cart.some(item => item.id === movie.id)
+                ? (<Link to="/checkout"><button className="buy-button">Go to Checkout</button></Link>)
                 : (<button className="buy-button" onClick={handleBuy}>Buy</button>)
             }
-            
+
           </div>
         </div>
 
@@ -217,11 +215,11 @@ function IndividualMovieInfo() {
                   <i className="fas fa-play play-icon"></i> Watch Trailer
                 </button>
                 {profile.savedList.some(item => item.id === movie.id) ?
-                 <button className="favorite-button" onClick={handleRemoveFromFavorites}>
-                   <i class="fas fa-heart-circle-xmark"></i>Remove from Favorites
-                </button> :<button className="favorite-button" onClick={handleAddToFavorites}>
-                   <i className="fas fa-heart"></i>Add to Favorites
-                </button> }
+                  <button className="favorite-button" onClick={handleRemoveFromFavorites}>
+                    <i className="fas fa-heart-circle-xmark"></i>Remove from Favorites
+                  </button> : <button className="favorite-button" onClick={handleAddToFavorites}>
+                    <i className="fas fa-heart"></i>Add to Favorites
+                  </button>}
               </div>
             </div>
           </div>
@@ -245,7 +243,7 @@ function IndividualMovieInfo() {
             </div>
           </div>
         </div>
-        
+
 
         <TrailerModal
           isOpen={modalIsOpen}

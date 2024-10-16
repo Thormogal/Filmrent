@@ -22,7 +22,7 @@ const MovieCollection = () => {
     if (error) {
         return <div>Error: {error}</div>
     }
-    const trimRatingNumber = (number) => parseFloat(number.toFixed(1));
+    const trimRatingNumber = (number) => parseFloat(number.toFixed(1))
     const extractYear = (date) => new Date(date).getFullYear();
 
     return (
@@ -54,7 +54,7 @@ const MovieCollection = () => {
                     {(searchResults.length > 0 ? searchResults : movies).map((movie) => (
                         <div key={movie.id} className='movieListItem'>
                             <Link to={`/movie-info/${movie.id}`} className='movieLink'>
-                                <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' />
+                                <img className='movieListImage' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} />
                             </Link>
 
                             <div className='flexRatingYear'>

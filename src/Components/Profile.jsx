@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import movieImage from '../assets/Filmrent.png'
 import { HeartOff } from 'lucide-react';
 import TrailerModal from './trailerModal';
+import { showToast } from "../features/toastSlice";
 
 
 
@@ -20,14 +21,16 @@ const Profile = () => {
     const boughtList = useSelector((state) => state.profile.boughtList) || [] ;
     const savedList = useSelector((state) => state.profile.savedList) || [] ;
 
+    console.log(boughtList);
     
     const handleRemoveFavourite = (movie) => {
         const id = movie.id;
-        
+        const message = `${movie.title} was removed from favorites`;
         dispatch(removeFromSavedList(id));
+        dispatch(showToast({showToast: true, message: message}));
     }
     const toggleBoughtMovies = () => {
-        console.log(boughtList);
+        
         setShowBoughtMovies((prev) => !prev);
     };
 
@@ -44,21 +47,42 @@ const Profile = () => {
                 <p>Rented Movies</p>
                     <ul>
                         {boughtList.length > 0 ? (
-                            boughtList.map((movie, index) => (
+                            boughtList.map((movie, index) => {
+                                 const expiratonDate = new Date(movie.expirationDate);
+
+                                const formattedTime = expiratonDate.toLocaleTimeString('sv-SE', {
+                                    hour: '2-digit', 
+                                    minute: '2-digit'});
+                                const formattedDate = expiratonDate.toLocaleDateString('sv-SE', {
+                                    day: '2-digit',
+                                    month: '2-digit'
+                                });
+
+                                const now = new Date();
+
+                                
+                                const diffInMilliseconds = expiratonDate - now;
+                                if (diffInMilliseconds < 0) {
+                                    const id = movie.id;
+                                    
+                                    dispatch(removeFromBoughtList(id));
+                                }
+                                const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60)); 
+                                const diffInMinutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)); 
+
+                                return (
 
                                 <div key={index}>
-                                   
-                                        <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} 
-                                        className='movieImage' 
-                                        onClick={() => setModalIsOpen(!modalIsOpen)}
-                                        />
-                                    
+
+                                        <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' onClick={() => setModalIsOpen(!modalIsOpen)}/>
+                                        {diffInHours > 24 ? <p>Expires: {formattedDate}</p> : diffInHours > 12 ? <p>Expires: {diffInHours}h</p> : <p>Expires: {diffInHours}h {diffInMinutes}min</p>}
+
                                 </div>
                                 // <li key={movie.movieID || index}>
                                 //     <strong>{movie.title}</strong> - Price: ${movie.price}
                                 // </li>
 
-                            ))
+                            )})
 
                         ) : (
                             <p>No rented movies yet.</p>
