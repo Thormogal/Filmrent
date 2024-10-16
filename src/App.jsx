@@ -37,7 +37,7 @@ function App() {
             <CartSmall showSmallCart={showSmallCart} setShowSmallCart={setShowSmallCart} />
 
         </motion.div>
-       <button onClick={() => dispatch(showToast(true))}>Klick</button>
+       
        <motion.div className='cart-toast'
         initial={{opacity: 0}}
         animate={{opacity: showToast ? 1 : 0}}

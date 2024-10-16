@@ -42,17 +42,19 @@ function IndividualMovieInfo() {
   const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown';
   const formattedReleaseDate = movie.release_date ? new Date(movie.release_date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Unknown';
 
-  const { fullPrice, discountPrice, isAnniversary } = calculatePrice(movie.release_date);
+  const { fullPrice, discountPrice, isAnniversary, discount } = calculatePrice(movie.release_date);
 
   const handleBuy = () => {
     let movieToBuy = {
       ...movie,
       fullPrice: fullPrice,
+      discount: discount,
       ...(isAnniversary && { discount: 10 }),
       finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
     };
     const message = `${movie.title} added to cart.`;
     dispatch(addToCart({movieToBuy, message}));
+    // dispatch(calculateCart());
     
   };
 

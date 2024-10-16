@@ -11,7 +11,7 @@ const Header = ({showSmallCart, setShowSmallCart}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const cart = useSelector(state => state.cart.cart);
-  console.log(cart);
+  console.log("cart" + cart);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

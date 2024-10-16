@@ -6,7 +6,7 @@ const cartToast = () => {
 
     const dispatch = useDispatch();
     const showToast = useSelector(state => state.cart.showToast);
-    const message = useSelector(state => state.cart.message);
+    const message = useSelector(state => state.cart.toastMessage);
 
     useEffect(() => {
         const timer = setTimeout(() => {
