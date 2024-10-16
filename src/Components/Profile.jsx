@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import '../CSS/profile.css';
 import {Link} from 'react-router-dom'
 import movieImage from '../assets/Filmrent.png'
-import { Heart } from 'lucide-react';
+import { HeartOff } from 'lucide-react';
 import TrailerModal from './trailerModal';
 
 
@@ -79,7 +79,7 @@ const Profile = () => {
                         {savedList.length > 0 ? (
                             savedList.map((movie, index) => (
                                 <li key={movie.movieID || index}>
-                                    <Heart onClick={() => handleRemoveFavourite(movie)}/>
+                                    <HeartOff onClick={() => handleRemoveFavourite(movie)}/>
                                     {/* <strong>{movie.title}</strong> - Price: ${movie.price} */}
                                     <Link to={`/movie-info/${movie.id}`} >
                                         
