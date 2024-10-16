@@ -51,6 +51,7 @@ const Profile = () => {
                         {boughtList.length > 0 ? (
                             boughtList.map((movie, index) => {
                                  const expiratonDate = new Date(movie.expirationDate);
+
                                 const formattedTime = expiratonDate.toLocaleTimeString('sv-SE', {
                                     hour: '2-digit', 
                                     minute: '2-digit'});
@@ -60,7 +61,14 @@ const Profile = () => {
                                 });
 
                                 const now = new Date();
+
+                                
                                 const diffInMilliseconds = expiratonDate - now;
+                                if (diffInMilliseconds < 0) {
+                                    const id = movie.id;
+                                    
+                                    dispatch(removeFromBoughtList(id));
+                                }
                                 const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60)); 
                                 const diffInMinutes = Math.floor((diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)); 
 
