@@ -4,12 +4,15 @@ export const calculatePrice = (releaseDate) => {
   const releaseMonth = new Date(releaseDate).getMonth();
 
   let basePrice = 24.00;
+  let discount = 0.00;
   const currentYear = currentDate.getFullYear();
 
   if (releaseYear === currentYear) {
     basePrice += 10.00;
+    discount = 10;
   } else if (releaseYear < currentYear - 5) {
     basePrice -= 5.00;
+    discount = 5;
   }
 
   const currentMonth = currentDate.getMonth();
@@ -21,6 +24,7 @@ export const calculatePrice = (releaseDate) => {
   return {
     fullPrice: basePrice,
     discountPrice: discountPrice,
-    isAnniversary: isAnniversary
+    isAnniversary: isAnniversary,
+    discount: discount
   };
 };

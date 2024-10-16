@@ -3,10 +3,11 @@ import { MdDelete } from "react-icons/md";
 import { MdOutlineCancel } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { removeFromCart } from '../features/cart';
+import {motion} from 'framer-motion';
 
 const CartSmall = ({ showSmallCart, setShowSmallCart }) => {
 
-    const cart = useSelector(state => state.cart);
+    const cart = useSelector(state => state.cart.cart);
     const dispatch = useDispatch();
 
     const calculateTotalFullPrice = () => {
@@ -16,6 +17,13 @@ const CartSmall = ({ showSmallCart, setShowSmallCart }) => {
     const calculateTotalDiscount = () => {
         return cart.reduce((total, item) => total + (item.fullPrice - item.finalPrice), 0);
     };
+    const handleDelete = (item) => {
+        const id = item.id;
+        
+        const message = `${item.title} was removed from your cart.`
+        dispatch(removeFromCart({id, message}));
+        
+    }
 
     return (
         <div className="cart-small small-cart-space-between no-padding">
@@ -47,7 +55,7 @@ const CartSmall = ({ showSmallCart, setShowSmallCart }) => {
                                 }
                             </div>
                             <div>
-                                <MdDelete className='icon-delete' onClick={() => dispatch(removeFromCart(item.id))} />
+                                <MdDelete className='icon-delete' onClick={() => handleDelete(item)} />
                             </div>
                         </div>
                     );

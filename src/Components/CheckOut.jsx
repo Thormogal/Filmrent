@@ -8,13 +8,14 @@ import { IoMdArrowRoundForward } from "react-icons/io";
 import Payment from "./Payment";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { setDummyData } from "../features/cart";
 
+import {useNavigate} from 'react-router-dom';
 
 const ShoppingCart = () => {
 
     const [showCart, setShowCart] = useState(true);
     const [showPart, setShowPart] = useState(1);
+    let navigate = useNavigate();
     
     const [screenSize, setScreenSize] = useState(getScreenSize());
     const dispatch = useDispatch();
@@ -46,14 +47,17 @@ const ShoppingCart = () => {
 
     const handleBackClick = () => {
         if(showCart) {
-
+            navigate(-1);
         } else {
             setShowCart(true)
         }
     }
+
     const handleBackClickTablet = () => {
         if(showPart > 1) {
             setShowPart(showPart-1);
+        } else {
+            navigate(-1);
         }
     }
 
@@ -200,7 +204,7 @@ const ShoppingCart = () => {
 
     const cart = useSelector(state => state.cart)
     return ( 
-        <div className="shoppingcart">
+        <div className="checkout-content">
             {screenSize === 'mobile' && <CheckoutMobileScreen />}
             {screenSize === 'tablet' && <CheckoutTabletScreen />}
             {screenSize === 'desktop' && <CheckoutDesktopScreen />}

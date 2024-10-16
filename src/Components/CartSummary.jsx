@@ -3,67 +3,71 @@ import '../CSS/Cart.css';
 import { RiCoupon5Line } from "react-icons/ri";
 import { useState } from 'react';
 import { MdDelete } from "react-icons/md";
+import { remmoveCoupon, setCoupon } from '../features/cart';
+// import {  getSavingsMessage } from '../features/cart';
 
 const CartSummary = ({ showCart, setShowCart }) => {
-    const coupons = [
-        { code: "10%OFF", percentage: 0.1 },
-        { code: "20%OFF", percentage: 0.2 },
-        { code: "30%OFF", percentage: 0.3 }
-    ];
+    // const coupons = [
+    //     { code: "10%OFF", percentage: 0.1 },
+    //     { code: "20%OFF", percentage: 0.2 },
+    //     { code: "30%OFF", percentage: 0.3 }
+    // ];
 
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [showAddCoupon, setShowAddCoupon] = useState(false);
     const [code, setCode] = useState('');
-    const [coupon, setCoupon] = useState(null);
+    // const [coupon, setCoupon] = useState(null);
 
     const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
 
-    const calculateTotalFullPrice = () => {
-        return cart.reduce((total, item) => total + item.fullPrice, 0).toFixed(2);
-    };
+    // const calculateTotalFullPrice = () => {
+    //     return cart.reduce((total, item) => total + item.fullPrice, 0).toFixed(2);
+    // };
 
-    const calculateDiscount = () => {
-        return cart.reduce((total, item) => total + (item.discount || 0), 0).toFixed(2);
-    };
+    // const calculateDiscount = () => {
+    //     return cart.reduce((total, item) => total + (item.discount || 0), 0).toFixed(2);
+    // };
 
-    const calculateCouponDiscount = () => {
-        return ((calculateTotalFullPrice() - calculateDiscount()) * couponDiscount).toFixed(2);
-    };
+    // const calculateCouponDiscount = () => {
+    //     return ((calculateTotalFullPrice() - calculateDiscount()) * couponDiscount).toFixed(2);
+    // };
 
-    const calculateTotal = () => {
-        return (calculateTotalFullPrice() - calculateDiscount() - calculateCouponDiscount()).toFixed(2);
-    };
+    // const calculateTotal = () => {
+    //     return (calculateTotalFullPrice() - calculateDiscount() - calculateCouponDiscount()).toFixed(2);
+    // };
 
-    const calculateTotalSavings = () => {
-        return (parseFloat(calculateDiscount()) + parseFloat(calculateCouponDiscount())).toFixed(2);
-    };
+    // const calculateTotalSavings = () => {
+    //     return (parseFloat(calculateDiscount()) + parseFloat(calculateCouponDiscount())).toFixed(2);
+    // };
 
-    const getSavingsMessage = () => {
-        const discountExists = parseFloat(calculateDiscount()) > 0;
-        const couponExists = couponDiscount > 0;
+    // const getSavingsMessage = () => {
+    //     const discountExists = parseFloat(calculateDiscount()) > 0;
+    //     const couponExists = couponDiscount > 0;
 
-        if (discountExists && couponExists) {
-            return "with discount and coupons";
-        } else if (discountExists) {
-            return "with discount";
-        } else if (couponExists) {
-            return "with coupons";
-        }
-        return "";
-    };
+    //     if (discountExists && couponExists) {
+    //         return "with discount and coupons";
+    //     } else if (discountExists) {
+    //         return "with discount";
+    //     } else if (couponExists) {
+    //         return "with coupons";
+    //     }
+    //     return "";
+    // };
 
     const handleAddCouponCode = (text) => {
-        const foundCoupon = coupons.find(c => c.code === text);
+        const foundCoupon = cart.coupons.find(c => c.code === text);
         if (foundCoupon) {
-            setCoupon(foundCoupon);
-            setCouponDiscount(foundCoupon.percentage);
+            dispatch(setCoupon(foundCoupon));
+            // setCouponDiscount(foundCoupon.percentage);
         }
         setShowAddCoupon(!showAddCoupon);
     };
 
     const handleDeleteCode = () => {
-        setCoupon(null);
-        setCouponDiscount(0);
+        // setCoupon(null);
+        // setCouponDiscount(0);
+        dispatch(remmoveCoupon());
     };
 
     return (
@@ -77,7 +81,7 @@ const CartSummary = ({ showCart, setShowCart }) => {
                     <RiCoupon5Line className='icon' />
                     <p>Coupons</p>
                 </div>
-                {!showAddCoupon && coupon === null &&
+                {!showAddCoupon && cart.coupon === null &&
                     <button onClick={() => setShowAddCoupon(!showAddCoupon)}>Add</button>
                 }
             </div>
@@ -92,34 +96,36 @@ const CartSummary = ({ showCart, setShowCart }) => {
                     <button onClick={() => handleAddCouponCode(code)}>+</button>
                 </div>
             }
-            {coupon !== null &&
+            {cart.coupon !== null &&
                 <div className="active-coupon flex">
-                    <p>"{coupon.code}"</p>
+                    <p>"{cart.coupon.code}"</p>
                     <MdDelete className="icon-delete" onClick={() => handleDeleteCode()} />
                 </div>
             }
             <div className="bottom-border"></div>
             <div className="bottom-border flex">
-                <p id='items'>{`Price details (${cart.length} items)`} </p>
+                <p id='items'>{`Price details (${cart.cart.length} items)`} </p>
             </div>
             <div className="summary">
                 <p className='gray'>Total:</p>
-                <p>${calculateTotalFullPrice()}</p>
+                <p>${cart.totalFullPrice}</p>
                 <p className='gray'>Discount:</p>
-                <p className='discounted-price'>${calculateDiscount()}</p>
+                <p className='discounted-price'>${cart.totalDiscount}</p>
                 <p className='gray'>Coupon Discount:</p>
-                <p>${calculateCouponDiscount()}</p>
+                <p>${cart.totalCouponsDiscount}</p>
             </div>
             <div className="bottom-border"></div>
             <div className="summary summary-total flex">
                 <p>Total Amount:</p>
-                <p>${calculateTotal()}</p>
+                <p>${cart.totalPrice}</p>
             </div>
 
 
-            {calculateTotalSavings() > 0 && (
+            {cart.totalSavings > 0 && (
                 <div style={{ color: 'green', textAlign: 'center', fontStyle: 'italic' }}>
-                    You save ${calculateTotalSavings()} {getSavingsMessage()}!
+                    <p>
+                        You save ${cart.totalSavings} {cart.savingsMessage}!
+                    </p>
                 </div>
             )}
 

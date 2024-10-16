@@ -6,13 +6,22 @@ import placeholderPoster from '/Filmrent.png';
 import useDetailedMovieData from '../hooks/useDetailedMovieData';
 import isoLanguages from 'iso-639-1';
 import TrailerModal from '/src/Components/trailerModal.jsx';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../features/cart';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, setMessage, setShowToast } from '../features/cart';
 import { calculatePrice } from '../utils/priceCalculator.js';
+import {Link} from 'react-router-dom';
+
+import { useParams } from 'react-router-dom';
+
+
+
 import { addToSavedList } from '../features/profile.js';
 
+
 function IndividualMovieInfo() {
+
+  const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
   const { movieId } = useParams();
   const { movie, credits, trailer, loading, error } = useDetailedMovieData(movieId);
@@ -47,17 +56,20 @@ function IndividualMovieInfo() {
     ? new Date(movie.release_date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })
     : 'Unknown';
 
-  const { fullPrice, discountPrice, isAnniversary } = calculatePrice(movie.release_date);
+  const { fullPrice, discountPrice, isAnniversary, discount } = calculatePrice(movie.release_date);
 
   const handleBuy = () => {
     let movieToBuy = {
       ...movie,
       fullPrice: fullPrice,
+      discount: discount,
       ...(isAnniversary && { discount: 10 }),
       finalPrice: isAnniversary ? fullPrice - 10 : fullPrice
     };
-
-    dispatch(addToCart(movieToBuy));
+    const message = `${movie.title} added to cart.`;
+    dispatch(addToCart({movieToBuy, message}));
+    // dispatch(calculateCart());
+    
   };
 
   const handleAddToFavorites = () => {
@@ -120,7 +132,11 @@ function IndividualMovieInfo() {
 
 
           <div className="movie-button-container">
-            <button className="buy-button" onClick={handleBuy}>Buy</button>
+            {cart.cart.some(item => item.id === movie.id) 
+              ? (<Link to="/checkout"><button className="buy-button">Go to Checkout</button></Link>) 
+              : (<button className="buy-button" onClick={handleBuy}>Buy</button>)
+            }
+            
           </div>
         </div>
 
