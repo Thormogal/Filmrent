@@ -22,6 +22,7 @@ export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (page = 
     const pageString = `&page=${page}`; 
     const response = await axios.get(`${apiUrl}/discover/movie?api_key=${apiKey}${pageString}`)
     console.log("movies", response.data.results);
+    console.log("fetchMovies, page:", page);
     return response.data.results;
 })
 export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', async ({ query, genreId, sortValue, page = 1 }) => {
@@ -48,7 +49,11 @@ export const fetchSearchResults = createAsyncThunk('movies/fetchSearchResults', 
 const movieSlice = createSlice({
     name: 'movies',
     initialState,
-    reducers: {},
+    reducers: {
+        resetSearchResults(state) {
+            state.searchResults = [];
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(fetchGenres.pending, (state) => {
@@ -69,7 +74,10 @@ const movieSlice = createSlice({
         })
         .addCase(fetchMovies.fulfilled, (state, action) => {
             state.loading = false;
-            state.movies = action.payload;
+            const newMovies = action.payload.filter(movie => 
+                !state.movies.some(existingMovie => existingMovie.id === movie.id)
+            );
+            state.movies = [...state.movies, ...newMovies];
         })
         .addCase(fetchMovies.rejected, (state, action) => {
             state.loading = false;
@@ -78,11 +86,10 @@ const movieSlice = createSlice({
         .addCase(fetchSearchResults.pending, (state) => {
             state.loading = true;
             state.error = null;
-            state.searchResults = [];
         })
         .addCase(fetchSearchResults.fulfilled, (state, action) => {
             state.loading = false;
-            state.searchResults = action.payload;
+            state.searchResults = [...state.searchResults, ...action.payload];
         })
         .addCase(fetchSearchResults.rejected, (state, action) => {
             state.loading = false;
@@ -91,5 +98,5 @@ const movieSlice = createSlice({
     }
 })
 
-
+export const { resetSearchResults } = movieSlice.actions;
 export default movieSlice.reducer;

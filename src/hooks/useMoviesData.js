@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchMovies, fetchGenres, fetchSearchResults } from "../features/movieListSlice";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
-
+import { resetSearchResults } from '../features/movieListSlice';
 const useMoviesData = () => {
 
     const [inputText, setInputText] = useState('');
@@ -41,12 +41,16 @@ const useMoviesData = () => {
         dispatch(fetchGenres());
         dispatch(fetchMovies());
     }, [dispatch]);
-    
+    useEffect(() => {
+        dispatch(fetchSearchResults({ query: 'yourQuery', genreId: 'yourGenreId', sortValue: 'yourSortValue', page: 1 }));
+    }, [dispatch]);
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             setGenreId('');
             setSelectedSortValue('');
             setPage(1);
+            dispatch(resetSearchResults());
             dispatch(fetchSearchResults({ query: inputText, genreId: '' , sortValue: '', page: 1}));
         }
     }
@@ -55,6 +59,7 @@ const useMoviesData = () => {
         const selectedGenreId = e.target.value;
         setGenreId(selectedGenreId);
         setPage(1);
+        dispatch(resetSearchResults());
         if (selectedGenreId) {
             dispatch(fetchSearchResults({ query: inputText, genreId: selectedGenreId , sortValue : selectedSortValue, page : 1}));
         }
@@ -63,7 +68,8 @@ const useMoviesData = () => {
         const selectedSortedValue = e.target.value;
         setSelectedSortValue(selectedSortedValue);
         setPage(1);
-            dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortedValue, page : 1 }));
+        dispatch(resetSearchResults());
+        dispatch(fetchSearchResults({ query: inputText, genreId: genreId, sortValue: selectedSortedValue, page : 1 }));
     };
     const handleShowMore = () => {
         const nextPage = page + 1;
