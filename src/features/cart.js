@@ -40,7 +40,7 @@ coupons: [
 const calculateCart = (state) => {
     const totalFullPrice = state.cart.reduce((total, item) => total + item.fullPrice, 0).toFixed(2);
     const totalDiscount = state.cart.reduce((total, item) => total + item.discount, 0).toFixed(2);
-    // const couponDiscount = 0;
+    
     const totalCouponsDiscount = ((totalFullPrice - totalDiscount) * state.couponDiscount).toFixed(2);
     const totalPrice = (totalFullPrice - totalDiscount - totalCouponsDiscount).toFixed(2);
     const totalSavings = (parseFloat(totalDiscount) + parseFloat(totalCouponsDiscount)).toFixed(2);

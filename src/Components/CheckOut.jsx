@@ -202,7 +202,7 @@ const ShoppingCart = () => {
 
    
 
-    const cart = useSelector(state => state.cart.cart)
+    const cart = useSelector(state => state.cart)
     return ( 
         <div className="checkout-content">
             {screenSize === 'mobile' && <CheckoutMobileScreen />}

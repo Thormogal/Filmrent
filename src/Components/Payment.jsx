@@ -8,9 +8,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCart } from "../features/cart";
 import { addToBoughtList } from "../features/profile";
+import {useNavigate} from 'react-router-dom';
 
 
 const Payment = () => {
+    let navigate = useNavigate();
 
     const [paymentMethod, setPaymentMethod] = useState('card');
     const dispatch = useDispatch();
@@ -26,6 +28,8 @@ const Payment = () => {
             
         });
         dispatch(resetCart());
+        navigate("/thanks");
+        
 
         //Go to movie or profile?
         

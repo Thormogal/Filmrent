@@ -15,6 +15,7 @@ import CartSmall from './Components/CartSmall';
 import {animate, motion} from 'framer-motion';
 import CartToast from './Components/CartToast';
 import { useDispatch, useSelector } from 'react-redux';
+import Thanks from './Components/Thanks'
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/movie-info/:movieId" element={<IndividualMovieInfo />} />
           <Route path='/profile' element={<Profile/>} />
+          <Route path='/thanks' element={<Thanks/>} />
         </Routes>
       </main>
       <Footer />
