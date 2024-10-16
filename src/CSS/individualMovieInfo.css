@@ -173,6 +173,10 @@ body {
     align-items: center;
 }
 
+.movie-button-wrapper button {
+    width: 100%;
+}
+
 .buy-button,
 .favorite-button,
 .trailer-button {
@@ -223,32 +227,42 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
   }
   
   .review-icon-img {
-    width: 50px;
+    width: 40px;
     height: auto;
     max-width: 80px;
     max-height: 80px;
     border-radius: 50%;
     object-fit: contain;
   }
+
+  .movie-rating:hover,
+  .review-icon-img:hover {
+    cursor:pointer;
+
+  }
   
   .movie-rating {
+    display: inline-block;
+    min-width: 100px;
     margin-top: 5px;
     font-size: 14px;
     color: #d6a432;
     font-weight: bold;
     text-align: center;
   }
+
+  .rating-details {
+    font-size: 0.9em;
+    color: #aaa;
+  }
   
   .movie-review-and-buttons {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 20px;
-    margin-top: 10px;
   }
   
   .movie-button-wrapper {
@@ -258,9 +272,19 @@ body {
     gap: 10px;
   }
   
-  
 
 /* --- Responsive design --- */
+
+@media (max-width: 358px) {
+    .movie-additional-languages {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    
+      .movie-additional-languages span {
+        margin-top: -10px;
+      }
+}
 
 @media (max-width: 768px) {
 
@@ -268,7 +292,7 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 80%;
+        width: 100%;
     }
 
     .movie-layout-wrapper {
@@ -286,10 +310,15 @@ body {
         margin: 0 auto;
         margin-bottom: 20px;
         padding: 20px;
+        width: 80%;
+    }
+
+    .movie-characteristics {
+        font-size: 14px;
     }
 
     .movie-extra-info-container {
-        width: 100%;
+        width: 80%;
         padding: 20px;
     }
 
@@ -309,10 +338,6 @@ body {
         display: flex;
         flex-direction: column;
         margin-bottom: 20px;
-    }
-
-    .movie-characteristics {
-        font-size: 14px;
     }
 
     .movie-review-and-buttons {
@@ -337,4 +362,37 @@ body {
         margin-top: 20px;
         margin-bottom: 20px;
     }
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+
+    .movie-review-and-buttons {
+        justify-content: start;
+        gap: 0px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .review-icon {
+        align-items: center;
+        margin-right: 15px;
+    }
+
+    .movie-rating {
+        display: start;
+        min-width: 0px;
+        justify-content: center;
+      }
+}
+
+
+@media (min-width: 807px) and (max-width: 1140px) {
+    .movie-additional-languages {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    
+      .movie-additional-languages span {
+        margin-top: -10px;
+      }
 }
