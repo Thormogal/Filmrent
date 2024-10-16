@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetCart } from "../features/cart";
 import { addToBoughtList } from "../features/profile";
 import {useNavigate} from 'react-router-dom';
+import { showToast } from "../features/toastSlice";
 
 
 const Payment = () => {
@@ -23,17 +24,19 @@ const Payment = () => {
     }
 
     const handlePay= () => {
+        const message = "Purchase confirmed! Your movies have been added to your profile.";
         cart.forEach(movie => {
             dispatch(addToBoughtList(movie));
             
         });
+        dispatch(showToast({showToast: true,message: message}));
         dispatch(resetCart());
         navigate("/thanks");
         
 
         //Go to movie or profile?
         
-        alert("Purchase confirmed! Your movies have been added to the rented list.")
+        // alert("Purchase confirmed! Your movies have been added to the rented list.")
         
     }
 

@@ -19,8 +19,9 @@ const initialState = {cart: [
 //     discount: 8.00,
 //     finalPrice: 24.00
 //   }
-], showToast: false,
-toastMessage: '', 
+], 
+// showToast: false,
+// toastMessage: '', 
 totalFullPrice: 0,
 coupon: null,
 totalSavings: 1,
@@ -73,16 +74,16 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
         
-        const {movieToBuy, message} = action.payload;
+        const movieToBuy = action.payload;
       state.cart.push(movieToBuy);
-      state.toastMessage = message;
-      state.showToast = true;
+    //   state.toastMessage = message;
+    //   state.showToast = true;
       calculateCart(state);
     },
     removeFromCart: (state, action) => {
-      const {id, message} = action.payload;
-      state.toastMessage = message;
-      state.showToast = true;
+      const id = action.payload;
+    //   state.toastMessage = message;
+    //   state.showToast = true;
     
         
       state.cart = state.cart.filter(movie => movie.id !== id);
@@ -92,24 +93,24 @@ const cartSlice = createSlice({
         state.cart = [];
         
     },
-    setShowToast: (state, action) => {
-        state.showToast = action.payload;
-    },
-    setMessage: (state, action) => {
-        state.toastMessage = action.payload;
-    }, 
+    // setShowToast: (state, action) => {
+    //     state.showToast = action.payload;
+    // },
+    // setMessage: (state, action) => {
+    //     state.toastMessage = action.payload;
+    // }, 
     setCoupon: (state, action) => {
         state.coupon = action.payload;
         state.couponDiscount = action.payload.percentage;
-        state.toastMessage = `Coupon ${state.coupon.code} was added`;
-        state.showToast = true;
+        // state.toastMessage = `Coupon ${state.coupon.code} was added`;
+        // state.showToast = true;
         calculateCart(state);
     },
     remmoveCoupon: (state) => {
         state.coupon = null;
         state.couponDiscount = 0;
-        state.toastMessage = `Coupon was removed`;
-        state.showToast = true;
+        // state.toastMessage = `Coupon was removed`;
+        // state.showToast = true;
         calculateCart(state);
     }
    
@@ -123,8 +124,8 @@ export const {
     addToCart, 
     removeFromCart, 
     resetCart, 
-    setShowToast, 
-    setMessage,
+    // setShowToast, 
+    // setMessage,
     setCoupon,
     remmoveCoupon,
        

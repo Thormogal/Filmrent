@@ -4,7 +4,8 @@ const initialState = {
     name: "Jonas Bondesson", 
     id: 1, 
     boughtList: [], 
-    savedList:[]}
+    savedList:[],
+    }
 
     const profileSlice = createSlice({
         name: "profile",
@@ -17,27 +18,26 @@ const initialState = {
 
                 }
                 let expirationDate = new Date(movieTimeStamp.bought).setDate(movieTimeStamp.bought.getDate() + movieTimeStamp.expirationDays);
-
-                // let expirationDate = new Date(movieTimeStamp.bought).setDate(movieTimeStamp.bought.getDate() + movieTimeStamp.expirationDays);
-                let tempMovie = action.payload;
-                let movie = {...tempMovie, expirationDate: expirationDate}
-                console.log(expirationDate);                
-                state.boughtList.push(movie);
+                let movie = action.payload;                
+                let movieWithTimeStamp = {...movie, expirationDate: expirationDate}
+                state.boughtList.push(movieWithTimeStamp);
             },
             removeFromBoughtList: (state, action) => {
                 const id = action.payload;
                 state.boughtList = state.boughtList.filter(movie => movie.id !== id);
             },
             addToSavedList: (state, action) => {
-                state.savedList.push(action.payload);
+                const movieToSave = action.payload;
+                state.savedList.push(movieToSave);
             },
             removeFromSavedList: (state, action) => {
                 const id = action.payload;
                 state.savedList = state.savedList.filter(movie => movie.id !== id);
-            }
+            },
+            
         }
     });
 
-    export const {addToBoughtList, removeFromBoughtList, addToSavedList, removeFromSavedList} = profileSlice.actions;
+    export const { addToBoughtList, removeFromBoughtList, addToSavedList, removeFromSavedList} = profileSlice.actions;
 
     export default profileSlice.reducer;

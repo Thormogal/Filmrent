@@ -4,6 +4,7 @@ import { RiCoupon5Line } from "react-icons/ri";
 import { useState } from 'react';
 import { MdDelete } from "react-icons/md";
 import { remmoveCoupon, setCoupon } from '../features/cart';
+import { showToast } from '../features/toastSlice';
 
 
 const CartSummary = ({ showCart, setShowCart }) => {
@@ -20,8 +21,9 @@ const CartSummary = ({ showCart, setShowCart }) => {
     const handleAddCouponCode = (text) => {
         const foundCoupon = cart.coupons.find(c => c.code === text);
         if (foundCoupon) {
+            const message = `Coupon ${foundCoupon.code} was added`
             dispatch(setCoupon(foundCoupon));
-            
+            dispatch(showToast({showToast: true,message: message}));
         }
         
         setShowAddCoupon(!showAddCoupon);
@@ -30,6 +32,8 @@ const CartSummary = ({ showCart, setShowCart }) => {
     const handleDeleteCode = () => {
        
         dispatch(remmoveCoupon());
+        const message = "Coupon was removed"
+        dispatch(showToast({showToast: true,message: message}));
     };
 
     return (
