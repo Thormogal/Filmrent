@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/HomeScreen.css';
@@ -13,6 +13,7 @@ const HomeScreen = () => {
   const [isLoadingTopRated, setIsLoadingTopRated] = useState(true);
   
   const navigate = useNavigate();
+  const popularMoviesRef = useRef(null);
 
   const apiOptions = {
     method: 'GET',
@@ -27,7 +28,7 @@ const HomeScreen = () => {
       try {
         const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', apiOptions);
         const data = await response.json();
-        setPopularMovies(data.results.slice(0, 9));
+        setPopularMovies(data.results.slice(0, 11));
       } catch (err) {
         console.error(err);
       } finally {
@@ -99,6 +100,12 @@ const HomeScreen = () => {
     }
   };
 
+  const scroll = (scrollOffset) => {
+    if (popularMoviesRef.current) {
+      popularMoviesRef.current.scrollLeft += scrollOffset;
+    }
+  };
+
   return (
     <div className="home-screen">
       <div className="welcome-section">
@@ -139,27 +146,35 @@ const HomeScreen = () => {
         <div className="section-header">
           <h2 className="section-title">Popular Movies</h2>
         </div>
-        <div className="thumbnail-list">
-          {isLoadingPopular ? (
-            <p>Loading popular movies...</p>
-          ) : (
-            popularMovies.map((movie) => (
-              <div 
-                key={movie.id} 
-                className="thumbnail-item"
-                onClick={() => handleMovieClick(movie)}
-              >
-                <div className="thumbnail-image">
-                  <img 
-                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : placeholderPoster} 
-                    alt={movie.title}
-                    className="media-poster"
-                  />
+        <div className="thumbnail-container">
+          <button className="scroll-btn scroll-left" onClick={() => scroll(-200)}>
+            &lt;
+          </button>
+          <div className="thumbnail-list" ref={popularMoviesRef}>
+            {isLoadingPopular ? (
+              <p>Loading popular movies...</p>
+            ) : (
+              popularMovies.map((movie) => (
+                <div 
+                  key={movie.id} 
+                  className="thumbnail-item"
+                  onClick={() => handleMovieClick(movie)}
+                >
+                  <div className="thumbnail-image">
+                    <img 
+                      src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : placeholderPoster} 
+                      alt={movie.title}
+                      className="media-poster"
+                    />
+                  </div>
+                  <span className="thumbnail-label">{movie.title}</span>
                 </div>
-                <span className="thumbnail-label">{movie.title}</span>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
+          <button className="scroll-btn scroll-right" onClick={() => scroll(200)}>
+            &gt;
+          </button>
         </div>
       </section>
 

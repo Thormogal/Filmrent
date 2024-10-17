@@ -104,6 +104,12 @@
   color: #000000;
 }
 
+.thumbnail-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .thumbnail-list {
   display: flex;
   overflow-x: auto;
@@ -111,11 +117,43 @@
   padding-bottom: 20px;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  scroll-behavior: smooth;
 }
 
 .thumbnail-list::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background: linear-gradient(to bottom, #d6a432, #a3221c);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 0.8;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.scroll-left {
+  left: 10px;
+}
+
+.scroll-right {
+  right: 10px;
 }
 
 .thumbnail-item {
@@ -243,8 +281,14 @@
   background: linear-gradient(45deg, #f0c05a, #d6a432);
 }
 
-.explore-all-btn span {
-  margin-right: 10px;
+.explore-all-btn svg {
+  margin-left: 10px;
+}
+
+@media (max-width: 1024px) {
+  .grid-item.large {
+    height: 400px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -292,6 +336,11 @@
   .explore-all-btn {
     font-size: 16px;
     padding: 12px 24px;
+  }
+
+  .scroll-btn {
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -350,5 +399,15 @@
     font-size: 14px;
     padding: 10px 20px;
     max-width: 200px;
+  }
+
+  .scroll-btn {
+    width: 23px;
+    height: 25px;
+  }
+
+  .scroll-btn svg {
+    width: 12px;
+    height: 12px;
   }
 }
