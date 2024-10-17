@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/HomeScreen.css';
-import placeholderPoster from '../public/Filmrent.png';
+import placeholderPoster from '/Filmrent.png';
 
 const HomeScreen = () => {
   const [popularMovies, setPopularMovies] = useState([]);
