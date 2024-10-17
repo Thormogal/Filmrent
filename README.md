@@ -1,8 +1,7 @@
-# React + Vite
+# 🎥 Filmrent - Rent Movies with Ease!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Filmrent** is a modern platform where you can browse and "rent" movies using data from The Movie Database (TMDB). With a user-friendly interface, Filmrent brings you all the latest films, complete with trailers, reviews, and rental options.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Check out the live demo here: [Filmrent Live Version](https://thormogal.github.io/Filmrent/)
