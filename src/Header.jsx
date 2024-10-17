@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logoImage from '../public/Filmrent 2.png';
+import logoImage from '/Filmrent 2.png';
 import { Menu, X, User,ShoppingCart } from 'lucide-react';
 import '../styles/Header.css';
 import { useSelector } from 'react-redux';
