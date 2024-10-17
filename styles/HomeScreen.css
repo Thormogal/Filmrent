@@ -140,13 +140,10 @@
   justify-content: center;
   cursor: pointer;
   z-index: 1;
-  opacity: 0.8;
+  opacity: 0.92;
   transition: background-color 0.3s ease;
 }
 
-.scroll-btn:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
 
 .scroll-left {
   left: 10px;
@@ -261,7 +258,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #d6a432, #a3221c);
+  background: linear-gradient(to bottom, #d6a432, #a3221c);
   border: none;
   color: #ffffff;
   font-size: 18px;
