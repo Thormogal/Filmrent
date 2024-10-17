@@ -1,0 +1,410 @@
+.home-screen {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #000000;
+  box-sizing: border-box;
+}
+
+.welcome-section {
+  text-align: left;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.welcome-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+.welcome-text {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 800px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(161, 22, 22, 0.1);
+  border-radius: 30px;
+  padding: 12px 24px;
+  max-width: 740px;
+}
+
+.search-icon {
+  color: #000000;
+  margin-right: 15px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+  color: #000000;
+}
+
+.search-bar input::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-width: 740px;
+  margin-top: 10px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-poster {
+  width: 45px;
+  height: 68px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.content-section {
+  margin-bottom: 60px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.thumbnail-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.thumbnail-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+.thumbnail-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background: linear-gradient(to bottom, #d6a432, #a3221c);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 0.92;
+  transition: background-color 0.3s ease;
+}
+
+
+.scroll-left {
+  left: 10px;
+}
+
+.scroll-right {
+  right: 10px;
+}
+
+.thumbnail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.thumbnail-image {
+  width: 150px;
+  height: 225px;
+  background-color: #333333;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.thumbnail-image:hover {
+  transform: scale(1.05);
+}
+
+.media-poster, .latest-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-label {
+  font-size: 14px;
+  color: #000000;
+  text-align: center;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.latest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  background-color: #333333;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  position: relative;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  cursor: pointer;
+}
+
+.grid-item:hover {
+  transform: scale(1.03);
+}
+
+.grid-item.large {
+  grid-column: span 2;
+  grid-row: span 2;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grid-item-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 8px;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.explore-all-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #d6a432, #a3221c);
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 250px;
+}
+
+.explore-all-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(45deg, #f0c05a, #d6a432);
+}
+
+.explore-all-btn svg {
+  margin-left: 10px;
+}
+
+@media (max-width: 1024px) {
+  .grid-item.large {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-screen {
+    padding: 10px;
+  }
+
+  .welcome-title {
+    font-size: 28px;
+  }
+
+  .welcome-text {
+    font-size: 16px;
+  }
+
+  .search-bar {
+    padding: 10px 20px;
+    max-width: 100%;
+  }
+
+  .search-results {
+    max-width: 100%;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .latest-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-item.large {
+    grid-column: span 2;
+    grid-row: span 1;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .thumbnail-image {
+    width: 120px;
+    height: 180px;
+  }
+
+  .explore-all-btn {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+
+  .scroll-btn {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-screen {
+    padding: 10px;
+  }
+
+  .welcome-title {
+    font-size: 24px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+  }
+
+  .search-bar {
+    padding: 8px 16px;
+  }
+
+  .search-icon {
+    margin-right: 10px;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .latest-grid {
+    gap: 10px;
+  }
+
+  .grid-item, .grid-item.large {
+    grid-column: span 1;
+    aspect-ratio: 2 / 3;
+  }
+
+  .thumbnail-image {
+    width: 100px;
+    height: 150px;
+  }
+
+  .thumbnail-label {
+    font-size: 12px;
+  }
+
+  .thumbnail-list {
+    gap: 10px;
+  }
+
+  .explore-all-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+    max-width: 200px;
+  }
+
+  .scroll-btn {
+    width: 23px;
+    height: 25px;
+  }
+
+  .scroll-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+}
