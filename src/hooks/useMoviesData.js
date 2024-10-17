@@ -20,19 +20,15 @@ const useMoviesData = () => {
         id: 'popularity.desc',
         name: 'Popularity - High to low'
     },
-    
-    {
-        id: 'vote_count.desc',
-        name: 'Vote count - High to low'
-    },
-    {
-        id: 'release_date.desc',
-        name: 'Release date - High to low'
-    },
     {
         id: 'popularity.asc',
         name: 'Popularity - Low to high'
     },
+    {
+        id: 'vote_count.desc',
+        name: 'Vote count - High to low'
+    },
+   
     {
         id: 'release_date.asc',
         name: 'Release date - Low to high'
