@@ -31,19 +31,15 @@ const Payment = () => {
         });
         dispatch(showToast({showToast: true,message: message}));
         dispatch(resetCart());
+        
         navigate("/thanks");
-        
-
-        //Go to movie or profile?
-        
-        // alert("Purchase confirmed! Your movies have been added to the rented list.")
         
     }
 
     return (
         
             <section className="payment box-shadow">
-            <div className="flex cart-top bottom-border">
+            <div className="flex-left-payment cart-top bottom-border">
                     <div className="cart-title">
                         <FaShoppingCart className="icon"/>
                         <p id="title">Payment</p>
