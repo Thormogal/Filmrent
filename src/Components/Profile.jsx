@@ -72,15 +72,16 @@ const Profile = () => {
 
                                 return (
 
-                                <div key={index}>
+                                <div key={index} className="bought-list">
 
                                         <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' onClick={() => setModalIsOpen(!modalIsOpen)}/>
-                                        {diffInHours > 24 ? <p>Expires: {formattedDate}</p> : diffInHours > 12 ? <p>Expires: {diffInHours}h</p> : <p>Expires: {diffInHours}h {diffInMinutes}min</p>}
+                                        <div  className="expires-overlay">
+                                        {diffInHours > 24 ? <p className="expires-overlay">Expires: {formattedDate}</p> : diffInHours > 12 ? <p>Expires: {diffInHours}h</p> : <p>Expires: {diffInHours}h {diffInMinutes}min</p>}
+                                        </div>
+                                        
 
                                 </div>
-                                // <li key={movie.movieID || index}>
-                                //     <strong>{movie.title}</strong> - Price: ${movie.price}
-                                // </li>
+                              
 
                             )})
 
@@ -89,21 +90,18 @@ const Profile = () => {
                         )
                         }
                     </ul>
-                {/* )} */}
+                
             </section>
 
             <section>
-                {/* <button onClick={toggleSavedMovies}>
-                    {showSavedMovies ? 'Hide Saved Movies' : 'Show Saved Movies'}
-                </button>
-                {showSavedMovies && ( */}
+               
                 <p>Saved Movies</p>
                     <ul>
                         {savedList.length > 0 ? (
                             savedList.map((movie, index) => (
-                                <li key={movie.movieID || index}>
-                                    <HeartOff onClick={() => handleRemoveFavourite(movie)}/>
-                                    {/* <strong>{movie.title}</strong> - Price: ${movie.price} */}
+                                <li key={movie.movieID || index} className="favourite-list">
+                                    <HeartOff onClick={() => handleRemoveFavourite(movie)} className="favourite-overlay"/>
+                                    
                                     <Link to={`/movie-info/${movie.id}`} >
                                         
                                 <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} 

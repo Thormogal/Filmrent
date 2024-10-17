@@ -25,11 +25,11 @@
 }
 button {
     border-radius: 8px;
-    border: 1px solid transparent;
+    /* border: 1px solid transparent; */
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background: linear-gradient(to bottom, #D6A432, #A3221C);
     cursor: pointer;
     transition: border-color 0.25s;
   }
@@ -201,24 +201,21 @@ button {
 }
 
 .order-button {
-    width: 200px;
-    background-color: #B90000;
-    color: black;
-    border: 2px solid black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, #D6A432, #A3221C);
     margin-bottom: 20px;
+    margin-top: 10px;
+    width: 200px;
+    align-self: center;
+    
+    /* background-color: #B90000; */
+    color: black;
+    /* border: 2px solid black; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
     font-size: 18px;
 }
 
-.coupon button {
-    height: 24px;
-    width: 50px;
-    background-color: green;
-    font-size: 12px;
-    padding: 5px;
-    color: white;
-    border: 1px solid black;
-}
+
 
 .margin-bottom-20 {
     margin-bottom: 30px;
@@ -331,6 +328,10 @@ input {
   .pointer {
     cursor: pointer;
   }
+  
+
+
+/* --------------------------------------------------------------------- */
 
   @media screen and (max-width: 1024px) {
     .shoppingcart {
@@ -376,6 +377,7 @@ input {
         width: 550px;
         
       }
+    
  
   }
 
@@ -523,9 +525,9 @@ input {
   .go-to-checkout {
     
     width: 100%;
-    background-color: #B90000;
+    
     color: #282828;
-    border: 2px solid #1a1a1a;
+    
     border-radius: 5px;
     margin-bottom: 20px;
 
@@ -579,3 +581,12 @@ input {
     border-radius: 5px;
     box-shadow: 6px 8px 8px gray;
   }
+  .coupon-button {
+    height: 24px;
+    width: 50px;
+    background-color: green;
+    font-size: 12px;
+    padding: 5px;
+    color: white;
+    border: 1px solid black;
+}

@@ -72,7 +72,7 @@ const CartSummary = ({ showCart, setShowCart }) => {
                     <p>Coupons</p>
                 </div>
                 {!showAddCoupon && cart.coupon === null &&
-                    <button onClick={() => setShowAddCoupon(!showAddCoupon)}>Add</button>
+                    <button className="coupon-button" onClick={() => setShowAddCoupon(!showAddCoupon)}>Add</button>
                 }
             </div>
             {showAddCoupon &&
@@ -83,7 +83,7 @@ const CartSummary = ({ showCart, setShowCart }) => {
                         value={code}
                         onChange={(e) => setCode(e.target.value)}
                     />
-                    <button onClick={() => handleAddCouponCode(code)}>+</button>
+                    <button className="coupon-button" onClick={() => handleAddCouponCode(code)}>Add</button>
                 </div>
             }
             {cart.coupon !== null &&
