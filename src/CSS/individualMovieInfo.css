@@ -197,7 +197,8 @@ body {
 .buy-button:hover,
 .favorite-button:hover,
 .trailer-button:hover {
-    background: linear-gradient(to bottom, #B30000, #4D0000);
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #f0c05a, #d6a432);
 }
 
 .play-icon {
@@ -238,10 +239,9 @@ body {
     object-fit: contain;
   }
 
-  .movie-rating:hover,
   .review-icon-img:hover {
     cursor:pointer;
-
+    transform: translateY(-2px);
   }
   
   .movie-rating {
