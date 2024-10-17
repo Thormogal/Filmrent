@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 40px 20px;
     color: #000000;
+    box-sizing: border-box;
   }
   
   .contact-title {
@@ -64,6 +65,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    box-sizing: border-box;
   }
   
   .contact-form textarea {
@@ -77,18 +79,22 @@
     justify-content: center;
     width: 100%;
     gap: 10px;
-    padding: 12px 24px;
-    background: linear-gradient(to bottom, #d6a432, #a3221c);
-    color: white;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #d6a432, #f0c05a);
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
   }
   
   .submit-btn:hover {
-    background-color: #c29328;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(45deg, #f0c05a, #d6a432);
   }
   
   @media (max-width: 768px) {
@@ -99,10 +105,20 @@
     .contact-info,
     .contact-form {
       width: 100%;
+
     }
+    .contact-form input,
+    .contact-form textarea,
+    .submit-btn {
+    width: 100%;
+    max-width: 100%; 
   }
+}
   
   @media (max-width: 480px) {
+    .contact-page {
+      padding: 20px 10px;
+    }
     .contact-title {
       font-size: 28px;
     }
@@ -115,5 +131,9 @@
     .contact-form textarea,
     .submit-btn {
       font-size: 14px;
+      padding: 10px;
+    }
+    .submit-btn {
+      padding: 12px 24px;
     }
   }

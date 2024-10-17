@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/HomeScreen.css';
+import placeholderPoster from '../public/Filmrent.png';
 
 const HomeScreen = () => {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -33,7 +34,7 @@ const HomeScreen = () => {
         setIsLoadingPopular(false);
       }
     };
-
+  
     const fetchTopRatedMovies = async () => {
       try {
         const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', apiOptions);
@@ -76,11 +77,7 @@ const HomeScreen = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleSeeAllPopular = () => {
-    navigate('/movies');
-  };
-
-  const handleSeeAllTopRated = () => {
+  const handleSeeAllMovies = () => {
     navigate('/movies');
   };
 
@@ -107,13 +104,13 @@ const HomeScreen = () => {
       <div className="welcome-section">
         <h1 className="welcome-title">Welcome to FilmRent</h1>
         <p className="welcome-text">
-          Explore a world of movies, series, and exclusive content—all in one place, ready to stream anytime, anywhere, on any device.
+          Explore a world of movies and exclusive content-all in one place, ready to stream anytime, anywhere, on any device.
         </p>
         <div className="search-bar">
           <Search className="search-icon" size={20} />
           <input 
             type="text" 
-            placeholder="Search for movies, series, and more..." 
+            placeholder="Search for movies..." 
             value={searchQuery}
             onChange={handleSearchChange}
           />
@@ -127,7 +124,7 @@ const HomeScreen = () => {
                 onClick={() => handleMovieClick(movie)}
               >
                 <img 
-                  src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} 
+                  src={movie.poster_path ? `https://image.tmdb.org/t/p/w92${movie.poster_path}` : placeholderPoster} 
                   alt={movie.title}
                   className="search-result-poster"
                 />
@@ -141,9 +138,6 @@ const HomeScreen = () => {
       <section className="content-section">
         <div className="section-header">
           <h2 className="section-title">Popular Movies</h2>
-          <button className="see-all-btn" onClick={handleSeeAllPopular}>
-            See All <ChevronRight size={20} />
-          </button>
         </div>
         <div className="thumbnail-list">
           {isLoadingPopular ? (
@@ -157,7 +151,7 @@ const HomeScreen = () => {
               >
                 <div className="thumbnail-image">
                   <img 
-                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} 
+                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : placeholderPoster} 
                     alt={movie.title}
                     className="media-poster"
                   />
@@ -172,9 +166,6 @@ const HomeScreen = () => {
       <section className="content-section">
         <div className="section-header">
           <h2 className="section-title">Top Rated Movies</h2>
-          <button className="see-all-btn" onClick={handleSeeAllTopRated}>
-            See All <ChevronRight size={20} />
-          </button>
         </div>
         <div className="latest-grid">
           {isLoadingTopRated ? (
@@ -189,7 +180,7 @@ const HomeScreen = () => {
                 >
                   <div className="image-container">
                     <img 
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                      src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderPoster} 
                       alt={movie.title}
                       className="latest-poster"
                     />
@@ -205,7 +196,7 @@ const HomeScreen = () => {
                 >
                   <div className="image-container">
                     <img 
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                      src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeholderPoster} 
                       alt={movie.title}
                       className="latest-poster"
                     />
@@ -217,6 +208,11 @@ const HomeScreen = () => {
           )}
         </div>
       </section>
+
+      <button className="explore-all-btn" onClick={handleSeeAllMovies}>
+        Explore All Movies
+        <ChevronRight size={20} />
+      </button>
     </div>
   );
 };
