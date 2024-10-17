@@ -72,7 +72,7 @@ const Profile = () => {
 
                                 return (
 
-                                <div key={index} className="bought-list">
+                                <div key={index} className="bought-list pointer">
 
                                         <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : movieImage} className='movieImage' onClick={() => setModalIsOpen(!modalIsOpen)}/>
                                         <div  className="expires-overlay">
@@ -100,7 +100,7 @@ const Profile = () => {
                         {savedList.length > 0 ? (
                             savedList.map((movie, index) => (
                                 <li key={movie.movieID || index} className="favourite-list">
-                                    <HeartOff onClick={() => handleRemoveFavourite(movie)} className="favourite-overlay"/>
+                                    <HeartOff onClick={() => handleRemoveFavourite(movie)} className="favourite-overlay pointer"/>
                                     
                                     <Link to={`/movie-info/${movie.id}`} >
                                         
