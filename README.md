@@ -5,3 +5,11 @@
 ## 🌐 Live Demo
 
 Check out the live demo here: [Filmrent Live Version](https://thormogal.github.io/Filmrent/)
+
+## ✨ Features
+
+- Search and browse movies with some of the data available from TMDB API.
+- Watch movie trailers before renting.
+- See movie ratings.
+- Filter by genre, release date and popularity.
+- Responsive design, optimized for mobile and desktop.
