@@ -112,6 +112,7 @@ display: contents;
     margin-top: 10px;
     width: 200px;
     align-self: center;
+    color: #ffffff;
 }
 
 @media (max-width: 768px) {
